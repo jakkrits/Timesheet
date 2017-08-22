@@ -27,13 +27,6 @@ const LinkList = ({ pathname, authenticated, logout }) =>
       >
         LogOut
       </LogOutButton>}
-    <A
-      href="https://github.com/Sly777/ran"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      RAN! @ Github
-    </A>
   </nav>;
 
 LinkList.propTypes = {

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
 import AuthFields from '../AuthFields';
 import validate from '../AuthFields/validation';
 import connect from './store';
@@ -71,6 +72,7 @@ class SignInForm extends React.Component {
         if (response.data) {
           this.props.actions.signIn(response.data.signinUser.token);
         }
+        Router.replace('/');
       })
       .catch(err => {
         this.getServerErrors(err);
