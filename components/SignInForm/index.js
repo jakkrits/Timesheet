@@ -72,7 +72,7 @@ class SignInForm extends React.Component {
         if (response.data) {
           this.props.actions.signIn(response.data.signinUser.token);
         }
-        Router.replace('/');
+        Router.push('/');
       })
       .catch(err => {
         this.getServerErrors(err);

@@ -1,17 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Router from 'next/router';
 import { graphql, gql } from 'react-apollo';
 import { Link } from '../../routes';
 import connect from './store';
 
 // eslint-disable-next-line
 class Header extends React.Component {
-  triggerLogin = event => {
-    event.preventDefault();
-    Router.push('/signin');
-  };
-
   toggleBurger = () => {
     // document.querySelector('.nav-menu').classList.toggle('is-active');
     const nav = document.getElementById('navMenuTransparent');
@@ -36,7 +30,7 @@ class Header extends React.Component {
         <p className="control">
           <a
             className="button"
-            role="presentation"
+            href="/"
             onClick={() => this.props.actions.logout()}
           >
             <span className="icon">
@@ -50,12 +44,7 @@ class Header extends React.Component {
   renderLoggedOut = () =>
     <div className="field is-grouped">
       <p className="control">
-        <a
-          className="button is-primary"
-          onClick={this.triggerLogin}
-          tabIndex="0"
-          role="button"
-        >
+        <a className="button is-primary" href="signin">
           <span className="icon">
             <i className="fa fa-sign-in" />
           </span>
@@ -162,7 +151,8 @@ class Header extends React.Component {
 }
 
 Header.defaultProps = {
-  authenticated: false
+  authenticated: false,
+  data: null
 };
 
 Header.propTypes = {
@@ -172,9 +162,9 @@ Header.propTypes = {
     logout: PropTypes.func.isRequired
   }).isRequired,
   data: PropTypes.shape({
-    user: PropTypes.node.isRequired,
-    loading: PropTypes.bool.isRequired
-  }).isRequired
+    user: PropTypes.object,
+    loading: PropTypes.bool
+  })
 };
 
 const currentUserQuery = gql`

@@ -15,7 +15,6 @@ class UserProfile extends React.Component {
     }
 
   render() {
-      console.log(this.props);
     return (
       <DefaultCon title="Profile" {...this.props}>
         <h1>USER PROFILE</h1>
