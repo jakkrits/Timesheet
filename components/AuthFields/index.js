@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Main, SubmitButton } from './styles';
 
 const AuthFields = props => {
   const {
@@ -30,22 +29,18 @@ const AuthFields = props => {
   const authMethod =
     (selectFields === 'signinFields' && 'Sign In') || 'Sign Up';
   return (
-    <Main>
+    <main>
       <h1>
         {authMethod}
       </h1>
       <form>
         {mapFields}
         <br />
-        <SubmitButton
-          onClick={handleSubmit}
-          touched={touched}
-          disabled={!touched}
-        >
+        <button onClick={handleSubmit} touched={touched} disabled={!touched}>
           {authMethod}
-        </SubmitButton>
+        </button>
       </form>
-    </Main>
+    </main>
   );
 };
 
