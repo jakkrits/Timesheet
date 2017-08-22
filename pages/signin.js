@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import SignInForm from '../components/SignInForm';
 import withData from '../libraries/withData';
