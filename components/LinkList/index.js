@@ -19,6 +19,10 @@ const LinkList = ({ pathname, authenticated, logout }) =>
         <A active={pathname === '/sign_up'}>SignUp</A>
       </Link>}
     {authenticated &&
+      <Link prefetch route="userProfile" passHref>
+        <A active={pathname === '/profile'}>User Profile</A>
+      </Link>}
+    {authenticated &&
       <LogOutButton
         role="link"
         href="#"

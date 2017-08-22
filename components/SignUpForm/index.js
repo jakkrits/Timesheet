@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
 import AuthFields from '../AuthFields';
 import validate from '../AuthFields/validation';
 import connect from './store';
@@ -72,6 +73,7 @@ class SignUpForm extends React.Component {
       .then(response => {
         if (response.data.signinUser) {
           this.props.actions.signIn(response.data.signinUser.token);
+          Router.replace('/');
         } else {
           this.setState({
             errors: response.data.createUser.errors
