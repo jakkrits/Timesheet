@@ -87,6 +87,7 @@
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",
+    "babel-plugin-inline-react-svg": "^0.4.0",
     "cli-clear": "1.0.4",
     "eslint": "3.19.0",
     "eslint-config-airbnb": "15.1.0",
