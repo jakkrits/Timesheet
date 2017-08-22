@@ -3,8 +3,10 @@ import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import NProgress from 'nprogress';
 import Router from 'next/router';
+import { Container } from 'bloomer';
 import App from '../components/App';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 // eslint-disable-next-line
 class Default extends React.Component {
@@ -28,7 +30,10 @@ class Default extends React.Component {
           </title>
         </Helmet>
         <Header pathname={this.props.url.pathname} />
-        {this.props.children}
+        <Container>
+          {this.props.children}
+        </Container>
+        <Footer />
       </App>
     );
   }

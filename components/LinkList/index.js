@@ -1,36 +1,33 @@
 import PropTypes from 'prop-types';
+import { Button } from 'bloomer';
 import { Link } from '../../routes';
-import { A, LogOutButton } from './styles';
 
 const LinkList = ({ pathname, authenticated, logout }) =>
   <nav>
     <Link prefetch href="/" passHref>
-      <A active={pathname === '/'}>Main Page</A>
-    </Link>
-    <Link prefetch route="create" passHref>
-      <A active={pathname === '/create_post'}>Create</A>
+      <a active={pathname === '/'}>Main Page</a>
     </Link>
     {!authenticated &&
       <Link prefetch route="signin" passHref>
-        <A active={pathname === '/sign_in'}>SignIn</A>
+        <a active={pathname === '/sign_in'}>SignIn</a>
       </Link>}
     {!authenticated &&
       <Link prefetch route="signup" passHref>
-        <A active={pathname === '/sign_up'}>SignUp</A>
+        <a active={pathname === '/sign_up'}>SignUp</a>
       </Link>}
     {authenticated &&
       <Link prefetch route="userProfile" passHref>
-        <A active={pathname === '/profile'}>User Profile</A>
+        <a active={pathname === '/profile'}>User Profile</a>
       </Link>}
     {authenticated &&
-      <LogOutButton
+      <Button
         role="link"
         href="#"
         onClick={() => logout()}
         active={pathname === '/sign_up'}
       >
         LogOut
-      </LogOutButton>}
+      </Button>}
   </nav>;
 
 LinkList.propTypes = {
