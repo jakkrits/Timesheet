@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Columns, Column } from 'bloomer';
 import connect from './store';
+import UserImage from '../UserImage';
 
 // eslint-disable-next-line
 class UserInfo extends React.Component {
   render() {
     const { data } = this.props;
-    console.log(this.props.data);
     if (data.loading) {
       // return <Loading />;
       return (
@@ -26,6 +26,7 @@ class UserInfo extends React.Component {
         <Column />
         <Column isSize="6">
           <h1>INFO OF USER HERE</h1>
+          <UserImage userId={data.user.id} />
         </Column>
         <Column />
       </Columns>
