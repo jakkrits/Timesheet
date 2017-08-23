@@ -16,7 +16,7 @@ class Header extends React.Component {
     <div>
       <div className="field is-grouped">
         <p className="control">
-          <Link prefetch route="/userProfile" passHref>
+          <Link prefetch route="/profile" passHref>
             <a className="button is-primary">
               <span className="icon">
                 <i className="fa fa-user-circle" />

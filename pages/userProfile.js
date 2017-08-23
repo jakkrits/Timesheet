@@ -18,6 +18,7 @@ class UserProfile extends React.Component {
     return (
       <DefaultCon title="Profile" {...this.props}>
         <h1>USER PROFILE</h1>
+        
       </DefaultCon>
     );
   }
