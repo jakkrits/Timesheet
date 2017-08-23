@@ -4,6 +4,7 @@ import withData from '../libraries/withData';
 import DefaultCon from '../containers/Default';
 import checkUserLoggedIn from '../libraries/checkUserLoggedIn';
 import Redirect from '../libraries/redirect';
+import UserInfo from '../components/UserInfo';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class UserProfile extends React.Component {
@@ -17,7 +18,7 @@ class UserProfile extends React.Component {
   render() {
     return (
       <DefaultCon title="Profile" {...this.props}>
-        <h1>USER PROFILE</h1>
+        <UserInfo />
       </DefaultCon>
     );
   }
