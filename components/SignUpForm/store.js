@@ -6,9 +6,9 @@ import createUserGql from './signupUser.gql';
 const withMutation = graphql(createUserGql, {
   props: ({ mutate }) => ({
     mutations: {
-      signUp: ({ firstName, lastName, email, password }) =>
+      signUp: ({ firstName, lastName, nickName, email, password }) =>
         mutate({
-          variables: { firstName, lastName, email, password }
+          variables: { firstName, lastName, nickName, email, password }
         })
     }
   })

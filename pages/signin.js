@@ -1,4 +1,5 @@
 import React from 'react';
+import { Columns, Column } from 'bloomer';
 import SignInForm from '../components/SignInForm';
 import withData from '../libraries/withData';
 import DefaultCon from '../containers/Default';
@@ -16,14 +17,21 @@ class Signin extends React.Component {
   }
   render() {
     return (
-      <DefaultCon title="Sign In" {...this.props}>
+      <DefaultCon title="ล็อคอิน" {...this.props}>
         <SignInForm />
-        <p>
-          no account?{' '}
-          <Link prefetch route="signup" passHref>
-            <a>SignUp</a>
-          </Link>
-        </p>
+        <Columns isCentered>
+          <Column />
+          <Column isSize="4" hasTextAlign="centered">
+            <hr />
+            <p>
+              ต้องการลงทะเบียน?{' '}
+              <Link prefetch route="signup" passHref>
+                <a>สมัครใช้งาน</a>
+              </Link>
+            </p>
+          </Column>
+          <Column />
+        </Columns>
       </DefaultCon>
     );
   }

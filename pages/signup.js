@@ -15,7 +15,7 @@ class Signup extends React.Component {
   }
   render() {
     return (
-      <DefaultCon title="Sign Up" {...this.props}>
+      <DefaultCon title="ลงทะเบียน" {...this.props}>
         <SignUpForm />
       </DefaultCon>
     );

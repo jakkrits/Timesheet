@@ -1,12 +1,14 @@
 mutation signupUser(
   $firstName: String!
   $lastName: String!
+  $nickName: String!
   $email: String!
   $password: String!
 ) {
   createUser(
     firstName: $firstName
     lastName: $lastName
+    nickName: $nickName
     authProvider: { email: { email: $email, password: $password } }
   ) {
     id

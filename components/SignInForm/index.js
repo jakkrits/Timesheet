@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
+import { Columns, Column } from 'bloomer';
 import AuthFields from '../AuthFields';
 import validate from '../AuthFields/validation';
 import connect from './store';
@@ -32,8 +33,8 @@ class SignInForm extends React.Component {
   }
 
   formFields = [
-    { key: 1, attr: { name: 'email', type: 'email', label: 'Email' } },
-    { key: 2, attr: { name: 'password', type: 'password', label: 'Password' } }
+    { key: 1, attr: { name: 'email', type: 'email', label: 'อีเมลล์' } },
+    { key: 2, attr: { name: 'password', type: 'password', label: 'พาสเวิร์ด' } }
   ];
 
   handleTouch = () => {
@@ -103,11 +104,14 @@ class SignInForm extends React.Component {
           handleTouch={this.handleTouch}
           selectFields="signinFields"
         />
-        <br />
-        <div>
-          {Object.keys(this.state.errors).length === 0 &&
-            this.state.serverErrors.message}
-        </div>
+        <Columns isCentered>
+          <Column />
+          <Column isSize="6" hasTextAlign="centered">
+            {Object.keys(this.state.errors).length === 0 &&
+              this.state.serverErrors.message}
+          </Column>
+          <Column />
+        </Columns>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
+import { Columns, Column } from 'bloomer';
 import AuthFields from '../AuthFields';
 import validate from '../AuthFields/validation';
 import connect from './store';
@@ -32,10 +33,11 @@ class SignUpForm extends React.Component {
   }
 
   formFields = [
-    { key: 1, attr: { name: 'firstName', type: 'text', label: 'First Name' } },
-    { key: 2, attr: { name: 'lastName', type: 'text', label: 'Last Name' } },
-    { key: 3, attr: { name: 'email', type: 'email', label: 'Email' } },
-    { key: 4, attr: { name: 'password', type: 'password', label: 'Password' } }
+    { key: 1, attr: { name: 'firstName', type: 'text', label: 'ชื่อจริง' } },
+    { key: 2, attr: { name: 'lastName', type: 'text', label: 'นามสกุล' } },
+    { key: 3, attr: { name: 'nickName', type: 'text', label: 'ชื่อเล่น' } },
+    { key: 4, attr: { name: 'email', type: 'email', label: 'อีเมลล์' } },
+    { key: 5, attr: { name: 'password', type: 'password', label: 'พาสเวิร์ด' } }
   ];
 
   handleTouch = () => {
@@ -73,7 +75,7 @@ class SignUpForm extends React.Component {
       .then(response => {
         if (response.data.signinUser) {
           this.props.actions.signIn(response.data.signinUser.token);
-          Router.replace('/');
+          Router.replace('/userProfile');
         } else {
           this.setState({
             errors: response.data.createUser.errors
@@ -109,11 +111,14 @@ class SignUpForm extends React.Component {
           touched={this.state.touched}
           handleTouch={this.handleTouch}
         />
-        <br />
-        <div>
-          {Object.keys(this.state.errors).length === 0 &&
-            this.state.serverErrors.message}
-        </div>
+        <Columns isCentered>
+          <Column />
+          <Column isSize="6" hasTextAlign="centered">
+            {Object.keys(this.state.errors).length === 0 &&
+              this.state.serverErrors.message}
+          </Column>
+          <Column />
+        </Columns>
       </div>
     );
   }
