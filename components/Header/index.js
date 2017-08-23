@@ -55,7 +55,7 @@ class Header extends React.Component {
 
   render() {
     const { pathname, authenticated, data } = this.props;
-    console.log(this.props); // eslint-disable-line
+    console.warn(this.props); // eslint-disable-line
     if (data.loading) {
       // return <Loading />;
       return (

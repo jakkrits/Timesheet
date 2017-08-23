@@ -48,6 +48,7 @@ input CreateDocument {
 
 input CreateFile {
   name: String!
+  userId: ID
 }
 
 input CreateTimesheet {
@@ -63,10 +64,11 @@ input CreateUser {
   firstName: String
   lastName: String
   nickName: String
-  picture: String
   role: UserRole
   documentId: ID
   document: UserdocumentDocument
+  imageId: ID
+  image: UserimageFile
 }
 
 scalar DateTime
@@ -937,6 +939,7 @@ type File implements Node {
   size: Int!
   updatedAt: DateTime!
   url: String!
+  user(filter: UserFilter): User
 }
 
 input FileFilter {
@@ -1211,6 +1214,7 @@ input FileFilter {
 
   # All values not ending with the given string.
   url_not_ends_with: String
+  user: UserFilter
 }
 
 enum FileOrderBy {
@@ -1531,6 +1535,7 @@ input FileSubscriptionFilterNode {
 
   # All values not ending with the given string.
   url_not_ends_with: String
+  user: UserFilter
 }
 
 type FileSubscriptionPayload {
@@ -1542,12 +1547,12 @@ type FileSubscriptionPayload {
 
 type Mutation {
   createDocument(branch: Branch, cellPhone: String, dateOfBirth: DateTime, department: Department, employedDate: DateTime, idCardNumber: String, leaveWithoutPay: Int, leaveWithPay: Int, savingsAccountID: String, savingsBank: String, shift: Shift, userId: ID, timesheetsIds: [ID!], timesheets: [DocumenttimesheetsTimesheet!]): Document
-  createFile(name: String!): File
+  createFile(name: String!, userId: ID): File
   createTimesheet(rating: Int, remark: String, timeCode: TimesheetCode, workday: DateTime, documentId: ID, document: TimesheetdocumentDocument): Timesheet
   updateDocument(branch: Branch, cellPhone: String, dateOfBirth: DateTime, department: Department, employedDate: DateTime, id: ID!, idCardNumber: String, leaveWithoutPay: Int, leaveWithPay: Int, savingsAccountID: String, savingsBank: String, shift: Shift, userId: ID, timesheetsIds: [ID!], timesheets: [DocumenttimesheetsTimesheet!]): Document
-  updateFile(id: ID!, name: String): File
+  updateFile(id: ID!, name: String, userId: ID): File
   updateTimesheet(id: ID!, rating: Int, remark: String, timeCode: TimesheetCode, workday: DateTime, documentId: ID, document: TimesheetdocumentDocument): Timesheet
-  updateUser(firstName: String, id: ID!, lastName: String, nickName: String, picture: String, role: UserRole, documentId: ID, document: UserdocumentDocument): User
+  updateUser(firstName: String, id: ID!, lastName: String, nickName: String, role: UserRole, documentId: ID, document: UserdocumentDocument, imageId: ID, image: UserimageFile): User
   updateOrCreateDocument(update: UpdateDocument!, create: CreateDocument!): Document
   updateOrCreateFile(update: UpdateFile!, create: CreateFile!): File
   updateOrCreateTimesheet(update: UpdateTimesheet!, create: CreateTimesheet!): Timesheet
@@ -1557,11 +1562,13 @@ type Mutation {
   deleteTimesheet(id: ID!): Timesheet
   deleteUser(id: ID!): User
   setDocumentOwner(userUserId: ID!, documentDocumentId: ID!): SetDocumentOwnerPayload
+  setUserImage(imageFileId: ID!, userUserId: ID!): SetUserImagePayload
   unsetDocumentOwner(userUserId: ID!, documentDocumentId: ID!): UnsetDocumentOwnerPayload
+  unsetUserImage(imageFileId: ID!, userUserId: ID!): UnsetUserImagePayload
   addToTimesheetOnDocument(documentDocumentId: ID!, timesheetsTimesheetId: ID!): AddToTimesheetOnDocumentPayload
   removeFromTimesheetOnDocument(documentDocumentId: ID!, timesheetsTimesheetId: ID!): RemoveFromTimesheetOnDocumentPayload
   signinUser(email: AUTH_PROVIDER_EMAIL): SigninPayload!
-  createUser(firstName: String, lastName: String, nickName: String, picture: String, role: UserRole, documentId: ID, document: UserdocumentDocument, authProvider: AuthProviderSignupData!): User
+  createUser(firstName: String, lastName: String, nickName: String, role: UserRole, documentId: ID, document: UserdocumentDocument, imageId: ID, image: UserimageFile, authProvider: AuthProviderSignupData!): User
 }
 
 # An object with an ID
@@ -1600,6 +1607,11 @@ type RemoveFromTimesheetOnDocumentPayload {
 type SetDocumentOwnerPayload {
   documentDocument: Document
   userUser: User
+}
+
+type SetUserImagePayload {
+  userUser: User
+  imageFile: File
 }
 
 enum Shift {
@@ -2092,6 +2104,11 @@ type UnsetDocumentOwnerPayload {
   userUser: User
 }
 
+type UnsetUserImagePayload {
+  userUser: User
+  imageFile: File
+}
+
 input UpdateDocument {
   branch: Branch
   cellPhone: String
@@ -2113,6 +2130,7 @@ input UpdateDocument {
 input UpdateFile {
   id: ID!
   name: String
+  userId: ID
 }
 
 input UpdateTimesheet {
@@ -2130,10 +2148,11 @@ input UpdateUser {
   id: ID!
   lastName: String
   nickName: String
-  picture: String
   role: UserRole
   documentId: ID
   document: UserdocumentDocument
+  imageId: ID
+  image: UserimageFile
 }
 
 type User implements Node {
@@ -2142,10 +2161,10 @@ type User implements Node {
   email: String
   firstName: String
   id: ID!
+  image(filter: FileFilter): File
   lastName: String
   nickName: String
   password: String
-  picture: String
   role: UserRole
   updatedAt: DateTime!
 }
@@ -2434,46 +2453,6 @@ input UserFilter {
 
   # All values not ending with the given string.
   password_not_ends_with: String
-  picture: String
-
-  # All values that are not equal to given value.
-  picture_not: String
-
-  # All values that are contained in given list.
-  picture_in: [String!]
-
-  # All values that are not contained in given list.
-  picture_not_in: [String!]
-
-  # All values less than the given value.
-  picture_lt: String
-
-  # All values less than or equal the given value.
-  picture_lte: String
-
-  # All values greater than the given value.
-  picture_gt: String
-
-  # All values greater than or equal the given value.
-  picture_gte: String
-
-  # All values containing the given string.
-  picture_contains: String
-
-  # All values not containing the given string.
-  picture_not_contains: String
-
-  # All values starting with the given string.
-  picture_starts_with: String
-
-  # All values not starting with the given string.
-  picture_not_starts_with: String
-
-  # All values ending with the given string.
-  picture_ends_with: String
-
-  # All values not ending with the given string.
-  picture_not_ends_with: String
   role: UserRole
 
   # All values that are not equal to given value.
@@ -2507,6 +2486,11 @@ input UserFilter {
   # All values greater than or equal the given value.
   updatedAt_gte: DateTime
   document: DocumentFilter
+  image: FileFilter
+}
+
+input UserimageFile {
+  name: String!
 }
 
 enum UserOrderBy {
@@ -2524,8 +2508,6 @@ enum UserOrderBy {
   nickName_DESC
   password_ASC
   password_DESC
-  picture_ASC
-  picture_DESC
   role_ASC
   role_DESC
   updatedAt_ASC
@@ -2540,7 +2522,6 @@ type UserPreviousValues {
   lastName: String
   nickName: String
   password: String
-  picture: String
   role: UserRole
   updatedAt: DateTime!
 }
@@ -2835,46 +2816,6 @@ input UserSubscriptionFilterNode {
 
   # All values not ending with the given string.
   password_not_ends_with: String
-  picture: String
-
-  # All values that are not equal to given value.
-  picture_not: String
-
-  # All values that are contained in given list.
-  picture_in: [String!]
-
-  # All values that are not contained in given list.
-  picture_not_in: [String!]
-
-  # All values less than the given value.
-  picture_lt: String
-
-  # All values less than or equal the given value.
-  picture_lte: String
-
-  # All values greater than the given value.
-  picture_gt: String
-
-  # All values greater than or equal the given value.
-  picture_gte: String
-
-  # All values containing the given string.
-  picture_contains: String
-
-  # All values not containing the given string.
-  picture_not_contains: String
-
-  # All values starting with the given string.
-  picture_starts_with: String
-
-  # All values not starting with the given string.
-  picture_not_starts_with: String
-
-  # All values ending with the given string.
-  picture_ends_with: String
-
-  # All values not ending with the given string.
-  picture_not_ends_with: String
   role: UserRole
 
   # All values that are not equal to given value.
@@ -2908,6 +2849,7 @@ input UserSubscriptionFilterNode {
   # All values greater than or equal the given value.
   updatedAt_gte: DateTime
   document: DocumentFilter
+  image: FileFilter
 }
 
 type UserSubscriptionPayload {
