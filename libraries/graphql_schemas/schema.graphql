@@ -9,6 +9,11 @@ type _QueryMeta {
   count: Int!
 }
 
+type AddToTimesheetOnDocumentPayload {
+  timesheetsTimesheet: Timesheet
+  documentDocument: Document
+}
+
 input AUTH_PROVIDER_EMAIL {
   email: String!
   password: String!
@@ -18,31 +23,919 @@ input AuthProviderSignupData {
   email: AUTH_PROVIDER_EMAIL
 }
 
+enum Branch {
+  BAN_KOH
+  SAVE_ONE
+  KHON_KHAN
+}
+
+input CreateDocument {
+  branch: Branch
+  cellPhone: String
+  dateOfBirth: DateTime
+  department: Department
+  employedDate: DateTime
+  idCardNumber: String
+  leaveWithoutPay: Int
+  leaveWithPay: Int
+  savingsAccountID: String
+  savingsBank: String
+  shift: Shift
+  userId: ID
+  timesheetsIds: [ID!]
+  timesheets: [DocumenttimesheetsTimesheet!]
+}
+
 input CreateFile {
   name: String!
 }
 
-input CreatePost {
-  title: String!
-  url: String!
-  votes: Int
+input CreateTimesheet {
+  rating: Int
+  remark: String
+  timeCode: TimesheetCode
+  workday: DateTime
+  documentId: ID
+  document: TimesheetdocumentDocument
 }
 
 input CreateUser {
-  firstName: String!
-  lastName: String!
+  firstName: String
+  lastName: String
+  nickName: String
+  picture: String
+  role: UserRole
+  documentId: ID
+  document: UserdocumentDocument
 }
 
 scalar DateTime
 
+enum Department {
+  SERVER
+  KITCHEN
+  DISHWASHER
+  DAILY
+  MANAGER
+  OWNER
+}
+
+type Document implements Node {
+  branch: Branch
+  cellPhone: String
+  createdAt: DateTime!
+  dateOfBirth: DateTime
+  department: Department
+  employedDate: DateTime
+  id: ID!
+  idCardNumber: String
+  leaveWithoutPay: Int
+  leaveWithPay: Int
+  savingsAccountID: String
+  savingsBank: String
+  shift: Shift
+  timesheets(filter: TimesheetFilter, orderBy: TimesheetOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Timesheet!]
+  updatedAt: DateTime!
+  user(filter: UserFilter): User
+
+  # Meta information about the query.
+  _timesheetsMeta(filter: TimesheetFilter, orderBy: TimesheetOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+}
+
+input DocumentFilter {
+  # Logical AND on all given filters.
+  AND: [DocumentFilter!]
+
+  # Logical OR on all given filters.
+  OR: [DocumentFilter!]
+  branch: Branch
+
+  # All values that are not equal to given value.
+  branch_not: Branch
+
+  # All values that are contained in given list.
+  branch_in: [Branch!]
+
+  # All values that are not contained in given list.
+  branch_not_in: [Branch!]
+  cellPhone: String
+
+  # All values that are not equal to given value.
+  cellPhone_not: String
+
+  # All values that are contained in given list.
+  cellPhone_in: [String!]
+
+  # All values that are not contained in given list.
+  cellPhone_not_in: [String!]
+
+  # All values less than the given value.
+  cellPhone_lt: String
+
+  # All values less than or equal the given value.
+  cellPhone_lte: String
+
+  # All values greater than the given value.
+  cellPhone_gt: String
+
+  # All values greater than or equal the given value.
+  cellPhone_gte: String
+
+  # All values containing the given string.
+  cellPhone_contains: String
+
+  # All values not containing the given string.
+  cellPhone_not_contains: String
+
+  # All values starting with the given string.
+  cellPhone_starts_with: String
+
+  # All values not starting with the given string.
+  cellPhone_not_starts_with: String
+
+  # All values ending with the given string.
+  cellPhone_ends_with: String
+
+  # All values not ending with the given string.
+  cellPhone_not_ends_with: String
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  dateOfBirth: DateTime
+
+  # All values that are not equal to given value.
+  dateOfBirth_not: DateTime
+
+  # All values that are contained in given list.
+  dateOfBirth_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  dateOfBirth_not_in: [DateTime!]
+
+  # All values less than the given value.
+  dateOfBirth_lt: DateTime
+
+  # All values less than or equal the given value.
+  dateOfBirth_lte: DateTime
+
+  # All values greater than the given value.
+  dateOfBirth_gt: DateTime
+
+  # All values greater than or equal the given value.
+  dateOfBirth_gte: DateTime
+  department: Department
+
+  # All values that are not equal to given value.
+  department_not: Department
+
+  # All values that are contained in given list.
+  department_in: [Department!]
+
+  # All values that are not contained in given list.
+  department_not_in: [Department!]
+  employedDate: DateTime
+
+  # All values that are not equal to given value.
+  employedDate_not: DateTime
+
+  # All values that are contained in given list.
+  employedDate_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  employedDate_not_in: [DateTime!]
+
+  # All values less than the given value.
+  employedDate_lt: DateTime
+
+  # All values less than or equal the given value.
+  employedDate_lte: DateTime
+
+  # All values greater than the given value.
+  employedDate_gt: DateTime
+
+  # All values greater than or equal the given value.
+  employedDate_gte: DateTime
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  idCardNumber: String
+
+  # All values that are not equal to given value.
+  idCardNumber_not: String
+
+  # All values that are contained in given list.
+  idCardNumber_in: [String!]
+
+  # All values that are not contained in given list.
+  idCardNumber_not_in: [String!]
+
+  # All values less than the given value.
+  idCardNumber_lt: String
+
+  # All values less than or equal the given value.
+  idCardNumber_lte: String
+
+  # All values greater than the given value.
+  idCardNumber_gt: String
+
+  # All values greater than or equal the given value.
+  idCardNumber_gte: String
+
+  # All values containing the given string.
+  idCardNumber_contains: String
+
+  # All values not containing the given string.
+  idCardNumber_not_contains: String
+
+  # All values starting with the given string.
+  idCardNumber_starts_with: String
+
+  # All values not starting with the given string.
+  idCardNumber_not_starts_with: String
+
+  # All values ending with the given string.
+  idCardNumber_ends_with: String
+
+  # All values not ending with the given string.
+  idCardNumber_not_ends_with: String
+  leaveWithoutPay: Int
+
+  # All values that are not equal to given value.
+  leaveWithoutPay_not: Int
+
+  # All values that are contained in given list.
+  leaveWithoutPay_in: [Int!]
+
+  # All values that are not contained in given list.
+  leaveWithoutPay_not_in: [Int!]
+
+  # All values less than the given value.
+  leaveWithoutPay_lt: Int
+
+  # All values less than or equal the given value.
+  leaveWithoutPay_lte: Int
+
+  # All values greater than the given value.
+  leaveWithoutPay_gt: Int
+
+  # All values greater than or equal the given value.
+  leaveWithoutPay_gte: Int
+  leaveWithPay: Int
+
+  # All values that are not equal to given value.
+  leaveWithPay_not: Int
+
+  # All values that are contained in given list.
+  leaveWithPay_in: [Int!]
+
+  # All values that are not contained in given list.
+  leaveWithPay_not_in: [Int!]
+
+  # All values less than the given value.
+  leaveWithPay_lt: Int
+
+  # All values less than or equal the given value.
+  leaveWithPay_lte: Int
+
+  # All values greater than the given value.
+  leaveWithPay_gt: Int
+
+  # All values greater than or equal the given value.
+  leaveWithPay_gte: Int
+  savingsAccountID: String
+
+  # All values that are not equal to given value.
+  savingsAccountID_not: String
+
+  # All values that are contained in given list.
+  savingsAccountID_in: [String!]
+
+  # All values that are not contained in given list.
+  savingsAccountID_not_in: [String!]
+
+  # All values less than the given value.
+  savingsAccountID_lt: String
+
+  # All values less than or equal the given value.
+  savingsAccountID_lte: String
+
+  # All values greater than the given value.
+  savingsAccountID_gt: String
+
+  # All values greater than or equal the given value.
+  savingsAccountID_gte: String
+
+  # All values containing the given string.
+  savingsAccountID_contains: String
+
+  # All values not containing the given string.
+  savingsAccountID_not_contains: String
+
+  # All values starting with the given string.
+  savingsAccountID_starts_with: String
+
+  # All values not starting with the given string.
+  savingsAccountID_not_starts_with: String
+
+  # All values ending with the given string.
+  savingsAccountID_ends_with: String
+
+  # All values not ending with the given string.
+  savingsAccountID_not_ends_with: String
+  savingsBank: String
+
+  # All values that are not equal to given value.
+  savingsBank_not: String
+
+  # All values that are contained in given list.
+  savingsBank_in: [String!]
+
+  # All values that are not contained in given list.
+  savingsBank_not_in: [String!]
+
+  # All values less than the given value.
+  savingsBank_lt: String
+
+  # All values less than or equal the given value.
+  savingsBank_lte: String
+
+  # All values greater than the given value.
+  savingsBank_gt: String
+
+  # All values greater than or equal the given value.
+  savingsBank_gte: String
+
+  # All values containing the given string.
+  savingsBank_contains: String
+
+  # All values not containing the given string.
+  savingsBank_not_contains: String
+
+  # All values starting with the given string.
+  savingsBank_starts_with: String
+
+  # All values not starting with the given string.
+  savingsBank_not_starts_with: String
+
+  # All values ending with the given string.
+  savingsBank_ends_with: String
+
+  # All values not ending with the given string.
+  savingsBank_not_ends_with: String
+  shift: Shift
+
+  # All values that are not equal to given value.
+  shift_not: Shift
+
+  # All values that are contained in given list.
+  shift_in: [Shift!]
+
+  # All values that are not contained in given list.
+  shift_not_in: [Shift!]
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  timesheets_every: TimesheetFilter
+  timesheets_some: TimesheetFilter
+  timesheets_none: TimesheetFilter
+  user: UserFilter
+}
+
+enum DocumentOrderBy {
+  branch_ASC
+  branch_DESC
+  cellPhone_ASC
+  cellPhone_DESC
+  createdAt_ASC
+  createdAt_DESC
+  dateOfBirth_ASC
+  dateOfBirth_DESC
+  department_ASC
+  department_DESC
+  employedDate_ASC
+  employedDate_DESC
+  id_ASC
+  id_DESC
+  idCardNumber_ASC
+  idCardNumber_DESC
+  leaveWithoutPay_ASC
+  leaveWithoutPay_DESC
+  leaveWithPay_ASC
+  leaveWithPay_DESC
+  savingsAccountID_ASC
+  savingsAccountID_DESC
+  savingsBank_ASC
+  savingsBank_DESC
+  shift_ASC
+  shift_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type DocumentPreviousValues {
+  branch: Branch
+  cellPhone: String
+  createdAt: DateTime!
+  dateOfBirth: DateTime
+  department: Department
+  employedDate: DateTime
+  id: ID!
+  idCardNumber: String
+  leaveWithoutPay: Int
+  leaveWithPay: Int
+  savingsAccountID: String
+  savingsBank: String
+  shift: Shift
+  updatedAt: DateTime!
+}
+
+input DocumentSubscriptionFilter {
+  # Logical AND on all given filters.
+  AND: [DocumentSubscriptionFilter!]
+
+  # Logical OR on all given filters.
+  OR: [DocumentSubscriptionFilter!]
+
+  # The subscription event gets dispatched when it's listed in mutation_in
+  mutation_in: [_ModelMutationType!]
+
+  # The subscription event gets only dispatched when one of the updated fields names is included in this list
+  updatedFields_contains: String
+
+  # The subscription event gets only dispatched when all of the field names included in this list have been updated
+  updatedFields_contains_every: [String!]
+
+  # The subscription event gets only dispatched when some of the field names included in this list have been updated
+  updatedFields_contains_some: [String!]
+  node: DocumentSubscriptionFilterNode
+}
+
+input DocumentSubscriptionFilterNode {
+  branch: Branch
+
+  # All values that are not equal to given value.
+  branch_not: Branch
+
+  # All values that are contained in given list.
+  branch_in: [Branch!]
+
+  # All values that are not contained in given list.
+  branch_not_in: [Branch!]
+  cellPhone: String
+
+  # All values that are not equal to given value.
+  cellPhone_not: String
+
+  # All values that are contained in given list.
+  cellPhone_in: [String!]
+
+  # All values that are not contained in given list.
+  cellPhone_not_in: [String!]
+
+  # All values less than the given value.
+  cellPhone_lt: String
+
+  # All values less than or equal the given value.
+  cellPhone_lte: String
+
+  # All values greater than the given value.
+  cellPhone_gt: String
+
+  # All values greater than or equal the given value.
+  cellPhone_gte: String
+
+  # All values containing the given string.
+  cellPhone_contains: String
+
+  # All values not containing the given string.
+  cellPhone_not_contains: String
+
+  # All values starting with the given string.
+  cellPhone_starts_with: String
+
+  # All values not starting with the given string.
+  cellPhone_not_starts_with: String
+
+  # All values ending with the given string.
+  cellPhone_ends_with: String
+
+  # All values not ending with the given string.
+  cellPhone_not_ends_with: String
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  dateOfBirth: DateTime
+
+  # All values that are not equal to given value.
+  dateOfBirth_not: DateTime
+
+  # All values that are contained in given list.
+  dateOfBirth_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  dateOfBirth_not_in: [DateTime!]
+
+  # All values less than the given value.
+  dateOfBirth_lt: DateTime
+
+  # All values less than or equal the given value.
+  dateOfBirth_lte: DateTime
+
+  # All values greater than the given value.
+  dateOfBirth_gt: DateTime
+
+  # All values greater than or equal the given value.
+  dateOfBirth_gte: DateTime
+  department: Department
+
+  # All values that are not equal to given value.
+  department_not: Department
+
+  # All values that are contained in given list.
+  department_in: [Department!]
+
+  # All values that are not contained in given list.
+  department_not_in: [Department!]
+  employedDate: DateTime
+
+  # All values that are not equal to given value.
+  employedDate_not: DateTime
+
+  # All values that are contained in given list.
+  employedDate_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  employedDate_not_in: [DateTime!]
+
+  # All values less than the given value.
+  employedDate_lt: DateTime
+
+  # All values less than or equal the given value.
+  employedDate_lte: DateTime
+
+  # All values greater than the given value.
+  employedDate_gt: DateTime
+
+  # All values greater than or equal the given value.
+  employedDate_gte: DateTime
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  idCardNumber: String
+
+  # All values that are not equal to given value.
+  idCardNumber_not: String
+
+  # All values that are contained in given list.
+  idCardNumber_in: [String!]
+
+  # All values that are not contained in given list.
+  idCardNumber_not_in: [String!]
+
+  # All values less than the given value.
+  idCardNumber_lt: String
+
+  # All values less than or equal the given value.
+  idCardNumber_lte: String
+
+  # All values greater than the given value.
+  idCardNumber_gt: String
+
+  # All values greater than or equal the given value.
+  idCardNumber_gte: String
+
+  # All values containing the given string.
+  idCardNumber_contains: String
+
+  # All values not containing the given string.
+  idCardNumber_not_contains: String
+
+  # All values starting with the given string.
+  idCardNumber_starts_with: String
+
+  # All values not starting with the given string.
+  idCardNumber_not_starts_with: String
+
+  # All values ending with the given string.
+  idCardNumber_ends_with: String
+
+  # All values not ending with the given string.
+  idCardNumber_not_ends_with: String
+  leaveWithoutPay: Int
+
+  # All values that are not equal to given value.
+  leaveWithoutPay_not: Int
+
+  # All values that are contained in given list.
+  leaveWithoutPay_in: [Int!]
+
+  # All values that are not contained in given list.
+  leaveWithoutPay_not_in: [Int!]
+
+  # All values less than the given value.
+  leaveWithoutPay_lt: Int
+
+  # All values less than or equal the given value.
+  leaveWithoutPay_lte: Int
+
+  # All values greater than the given value.
+  leaveWithoutPay_gt: Int
+
+  # All values greater than or equal the given value.
+  leaveWithoutPay_gte: Int
+  leaveWithPay: Int
+
+  # All values that are not equal to given value.
+  leaveWithPay_not: Int
+
+  # All values that are contained in given list.
+  leaveWithPay_in: [Int!]
+
+  # All values that are not contained in given list.
+  leaveWithPay_not_in: [Int!]
+
+  # All values less than the given value.
+  leaveWithPay_lt: Int
+
+  # All values less than or equal the given value.
+  leaveWithPay_lte: Int
+
+  # All values greater than the given value.
+  leaveWithPay_gt: Int
+
+  # All values greater than or equal the given value.
+  leaveWithPay_gte: Int
+  savingsAccountID: String
+
+  # All values that are not equal to given value.
+  savingsAccountID_not: String
+
+  # All values that are contained in given list.
+  savingsAccountID_in: [String!]
+
+  # All values that are not contained in given list.
+  savingsAccountID_not_in: [String!]
+
+  # All values less than the given value.
+  savingsAccountID_lt: String
+
+  # All values less than or equal the given value.
+  savingsAccountID_lte: String
+
+  # All values greater than the given value.
+  savingsAccountID_gt: String
+
+  # All values greater than or equal the given value.
+  savingsAccountID_gte: String
+
+  # All values containing the given string.
+  savingsAccountID_contains: String
+
+  # All values not containing the given string.
+  savingsAccountID_not_contains: String
+
+  # All values starting with the given string.
+  savingsAccountID_starts_with: String
+
+  # All values not starting with the given string.
+  savingsAccountID_not_starts_with: String
+
+  # All values ending with the given string.
+  savingsAccountID_ends_with: String
+
+  # All values not ending with the given string.
+  savingsAccountID_not_ends_with: String
+  savingsBank: String
+
+  # All values that are not equal to given value.
+  savingsBank_not: String
+
+  # All values that are contained in given list.
+  savingsBank_in: [String!]
+
+  # All values that are not contained in given list.
+  savingsBank_not_in: [String!]
+
+  # All values less than the given value.
+  savingsBank_lt: String
+
+  # All values less than or equal the given value.
+  savingsBank_lte: String
+
+  # All values greater than the given value.
+  savingsBank_gt: String
+
+  # All values greater than or equal the given value.
+  savingsBank_gte: String
+
+  # All values containing the given string.
+  savingsBank_contains: String
+
+  # All values not containing the given string.
+  savingsBank_not_contains: String
+
+  # All values starting with the given string.
+  savingsBank_starts_with: String
+
+  # All values not starting with the given string.
+  savingsBank_not_starts_with: String
+
+  # All values ending with the given string.
+  savingsBank_ends_with: String
+
+  # All values not ending with the given string.
+  savingsBank_not_ends_with: String
+  shift: Shift
+
+  # All values that are not equal to given value.
+  shift_not: Shift
+
+  # All values that are contained in given list.
+  shift_in: [Shift!]
+
+  # All values that are not contained in given list.
+  shift_not_in: [Shift!]
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  timesheets_every: TimesheetFilter
+  timesheets_some: TimesheetFilter
+  timesheets_none: TimesheetFilter
+  user: UserFilter
+}
+
+type DocumentSubscriptionPayload {
+  mutation: _ModelMutationType!
+  node: Document
+  updatedFields: [String!]
+  previousValues: DocumentPreviousValues
+}
+
+input DocumenttimesheetsTimesheet {
+  rating: Int
+  remark: String
+  timeCode: TimesheetCode
+  workday: DateTime
+}
+
 type File implements Node {
   contentType: String!
-  createdAt: DateTime
+  createdAt: DateTime!
   id: ID!
   name: String!
   secret: String!
   size: Int!
-  updatedAt: DateTime
+  updatedAt: DateTime!
   url: String!
 }
 
@@ -341,12 +1234,12 @@ enum FileOrderBy {
 
 type FilePreviousValues {
   contentType: String!
-  createdAt: DateTime
+  createdAt: DateTime!
   id: ID!
   name: String!
   secret: String!
   size: Int!
-  updatedAt: DateTime
+  updatedAt: DateTime!
   url: String!
 }
 
@@ -648,19 +1541,27 @@ type FileSubscriptionPayload {
 }
 
 type Mutation {
+  createDocument(branch: Branch, cellPhone: String, dateOfBirth: DateTime, department: Department, employedDate: DateTime, idCardNumber: String, leaveWithoutPay: Int, leaveWithPay: Int, savingsAccountID: String, savingsBank: String, shift: Shift, userId: ID, timesheetsIds: [ID!], timesheets: [DocumenttimesheetsTimesheet!]): Document
   createFile(name: String!): File
-  createPost(title: String!, url: String!, votes: Int): Post
+  createTimesheet(rating: Int, remark: String, timeCode: TimesheetCode, workday: DateTime, documentId: ID, document: TimesheetdocumentDocument): Timesheet
+  updateDocument(branch: Branch, cellPhone: String, dateOfBirth: DateTime, department: Department, employedDate: DateTime, id: ID!, idCardNumber: String, leaveWithoutPay: Int, leaveWithPay: Int, savingsAccountID: String, savingsBank: String, shift: Shift, userId: ID, timesheetsIds: [ID!], timesheets: [DocumenttimesheetsTimesheet!]): Document
   updateFile(id: ID!, name: String): File
-  updatePost(id: ID!, title: String, url: String, votes: Int): Post
-  updateUser(firstName: String, id: ID!, lastName: String): User
+  updateTimesheet(id: ID!, rating: Int, remark: String, timeCode: TimesheetCode, workday: DateTime, documentId: ID, document: TimesheetdocumentDocument): Timesheet
+  updateUser(firstName: String, id: ID!, lastName: String, nickName: String, picture: String, role: UserRole, documentId: ID, document: UserdocumentDocument): User
+  updateOrCreateDocument(update: UpdateDocument!, create: CreateDocument!): Document
   updateOrCreateFile(update: UpdateFile!, create: CreateFile!): File
-  updateOrCreatePost(update: UpdatePost!, create: CreatePost!): Post
+  updateOrCreateTimesheet(update: UpdateTimesheet!, create: CreateTimesheet!): Timesheet
   updateOrCreateUser(update: UpdateUser!, create: CreateUser!): User
+  deleteDocument(id: ID!): Document
   deleteFile(id: ID!): File
-  deletePost(id: ID!): Post
+  deleteTimesheet(id: ID!): Timesheet
   deleteUser(id: ID!): User
+  setDocumentOwner(userUserId: ID!, documentDocumentId: ID!): SetDocumentOwnerPayload
+  unsetDocumentOwner(userUserId: ID!, documentDocumentId: ID!): UnsetDocumentOwnerPayload
+  addToTimesheetOnDocument(documentDocumentId: ID!, timesheetsTimesheetId: ID!): AddToTimesheetOnDocumentPayload
+  removeFromTimesheetOnDocument(documentDocumentId: ID!, timesheetsTimesheetId: ID!): RemoveFromTimesheetOnDocumentPayload
   signinUser(email: AUTH_PROVIDER_EMAIL): SigninPayload!
-  createUser(firstName: String!, lastName: String!, authProvider: AuthProviderSignupData!): User
+  createUser(firstName: String, lastName: String, nickName: String, picture: String, role: UserRole, documentId: ID, document: UserdocumentDocument, authProvider: AuthProviderSignupData!): User
 }
 
 # An object with an ID
@@ -669,21 +1570,105 @@ interface Node {
   id: ID!
 }
 
-type Post implements Node {
-  createdAt: DateTime
-  id: ID!
-  title: String!
-  updatedAt: DateTime
-  url: String!
-  votes: Int
+type Query {
+  allDocuments(filter: DocumentFilter, orderBy: DocumentOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Document!]!
+  allFiles(filter: FileFilter, orderBy: FileOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [File!]!
+  allTimesheets(filter: TimesheetFilter, orderBy: TimesheetOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Timesheet!]!
+  allUsers(filter: UserFilter, orderBy: UserOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [User!]!
+  _allDocumentsMeta(filter: DocumentFilter, orderBy: DocumentOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+  _allFilesMeta(filter: FileFilter, orderBy: FileOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+  _allTimesheetsMeta(filter: TimesheetFilter, orderBy: TimesheetOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+  _allUsersMeta(filter: UserFilter, orderBy: UserOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
+  Document(id: ID): Document
+  File(id: ID, secret: String, url: String): File
+  Timesheet(id: ID): Timesheet
+  User(email: String, id: ID): User
+  user: User
+
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
 }
 
-input PostFilter {
+type RemoveFromTimesheetOnDocumentPayload {
+  timesheetsTimesheet: Timesheet
+  documentDocument: Document
+}
+
+type SetDocumentOwnerPayload {
+  documentDocument: Document
+  userUser: User
+}
+
+enum Shift {
+  MORNING
+  MID
+  GRAVEYARD
+}
+
+# If authentication was successful the payload contains the user and a token. If unsuccessful this payload is null.
+type SigninPayload {
+  token: String
+  user: User
+}
+
+type Subscription {
+  Document(filter: DocumentSubscriptionFilter): DocumentSubscriptionPayload
+  File(filter: FileSubscriptionFilter): FileSubscriptionPayload
+  Timesheet(filter: TimesheetSubscriptionFilter): TimesheetSubscriptionPayload
+  User(filter: UserSubscriptionFilter): UserSubscriptionPayload
+}
+
+type Timesheet implements Node {
+  createdAt: DateTime!
+  document(filter: DocumentFilter): Document
+  id: ID!
+  rating: Int
+  remark: String
+  timeCode: TimesheetCode
+  updatedAt: DateTime!
+  workday: DateTime
+}
+
+enum TimesheetCode {
+  R
+  OT
+  H
+  H1
+  V
+  L
+  L1
+  S
+  S1
+  A
+  A1
+}
+
+input TimesheetdocumentDocument {
+  branch: Branch
+  cellPhone: String
+  dateOfBirth: DateTime
+  department: Department
+  employedDate: DateTime
+  idCardNumber: String
+  leaveWithoutPay: Int
+  leaveWithPay: Int
+  savingsAccountID: String
+  savingsBank: String
+  shift: Shift
+  userId: ID
+  timesheetsIds: [ID!]
+  timesheets: [DocumenttimesheetsTimesheet!]
+}
+
+input TimesheetFilter {
   # Logical AND on all given filters.
-  AND: [PostFilter!]
+  AND: [TimesheetFilter!]
 
   # Logical OR on all given filters.
-  OR: [PostFilter!]
+  OR: [TimesheetFilter!]
   createdAt: DateTime
 
   # All values that are not equal to given value.
@@ -746,46 +1731,78 @@ input PostFilter {
 
   # All values not ending with the given string.
   id_not_ends_with: ID
-  title: String
+  rating: Int
 
   # All values that are not equal to given value.
-  title_not: String
+  rating_not: Int
 
   # All values that are contained in given list.
-  title_in: [String!]
+  rating_in: [Int!]
 
   # All values that are not contained in given list.
-  title_not_in: [String!]
+  rating_not_in: [Int!]
 
   # All values less than the given value.
-  title_lt: String
+  rating_lt: Int
 
   # All values less than or equal the given value.
-  title_lte: String
+  rating_lte: Int
 
   # All values greater than the given value.
-  title_gt: String
+  rating_gt: Int
 
   # All values greater than or equal the given value.
-  title_gte: String
+  rating_gte: Int
+  remark: String
+
+  # All values that are not equal to given value.
+  remark_not: String
+
+  # All values that are contained in given list.
+  remark_in: [String!]
+
+  # All values that are not contained in given list.
+  remark_not_in: [String!]
+
+  # All values less than the given value.
+  remark_lt: String
+
+  # All values less than or equal the given value.
+  remark_lte: String
+
+  # All values greater than the given value.
+  remark_gt: String
+
+  # All values greater than or equal the given value.
+  remark_gte: String
 
   # All values containing the given string.
-  title_contains: String
+  remark_contains: String
 
   # All values not containing the given string.
-  title_not_contains: String
+  remark_not_contains: String
 
   # All values starting with the given string.
-  title_starts_with: String
+  remark_starts_with: String
 
   # All values not starting with the given string.
-  title_not_starts_with: String
+  remark_not_starts_with: String
 
   # All values ending with the given string.
-  title_ends_with: String
+  remark_ends_with: String
 
   # All values not ending with the given string.
-  title_not_ends_with: String
+  remark_not_ends_with: String
+  timeCode: TimesheetCode
+
+  # All values that are not equal to given value.
+  timeCode_not: TimesheetCode
+
+  # All values that are contained in given list.
+  timeCode_in: [TimesheetCode!]
+
+  # All values that are not contained in given list.
+  timeCode_not_in: [TimesheetCode!]
   updatedAt: DateTime
 
   # All values that are not equal to given value.
@@ -808,100 +1825,64 @@ input PostFilter {
 
   # All values greater than or equal the given value.
   updatedAt_gte: DateTime
-  url: String
+  workday: DateTime
 
   # All values that are not equal to given value.
-  url_not: String
+  workday_not: DateTime
 
   # All values that are contained in given list.
-  url_in: [String!]
+  workday_in: [DateTime!]
 
   # All values that are not contained in given list.
-  url_not_in: [String!]
+  workday_not_in: [DateTime!]
 
   # All values less than the given value.
-  url_lt: String
+  workday_lt: DateTime
 
   # All values less than or equal the given value.
-  url_lte: String
+  workday_lte: DateTime
 
   # All values greater than the given value.
-  url_gt: String
+  workday_gt: DateTime
 
   # All values greater than or equal the given value.
-  url_gte: String
-
-  # All values containing the given string.
-  url_contains: String
-
-  # All values not containing the given string.
-  url_not_contains: String
-
-  # All values starting with the given string.
-  url_starts_with: String
-
-  # All values not starting with the given string.
-  url_not_starts_with: String
-
-  # All values ending with the given string.
-  url_ends_with: String
-
-  # All values not ending with the given string.
-  url_not_ends_with: String
-  votes: Int
-
-  # All values that are not equal to given value.
-  votes_not: Int
-
-  # All values that are contained in given list.
-  votes_in: [Int!]
-
-  # All values that are not contained in given list.
-  votes_not_in: [Int!]
-
-  # All values less than the given value.
-  votes_lt: Int
-
-  # All values less than or equal the given value.
-  votes_lte: Int
-
-  # All values greater than the given value.
-  votes_gt: Int
-
-  # All values greater than or equal the given value.
-  votes_gte: Int
+  workday_gte: DateTime
+  document: DocumentFilter
 }
 
-enum PostOrderBy {
+enum TimesheetOrderBy {
   createdAt_ASC
   createdAt_DESC
   id_ASC
   id_DESC
-  title_ASC
-  title_DESC
+  rating_ASC
+  rating_DESC
+  remark_ASC
+  remark_DESC
+  timeCode_ASC
+  timeCode_DESC
   updatedAt_ASC
   updatedAt_DESC
-  url_ASC
-  url_DESC
-  votes_ASC
-  votes_DESC
+  workday_ASC
+  workday_DESC
 }
 
-type PostPreviousValues {
-  createdAt: DateTime
+type TimesheetPreviousValues {
+  createdAt: DateTime!
   id: ID!
-  title: String!
-  updatedAt: DateTime
-  url: String!
-  votes: Int
+  rating: Int
+  remark: String
+  timeCode: TimesheetCode
+  updatedAt: DateTime!
+  workday: DateTime
 }
 
-input PostSubscriptionFilter {
+input TimesheetSubscriptionFilter {
   # Logical AND on all given filters.
-  AND: [PostSubscriptionFilter!]
+  AND: [TimesheetSubscriptionFilter!]
 
   # Logical OR on all given filters.
-  OR: [PostSubscriptionFilter!]
+  OR: [TimesheetSubscriptionFilter!]
 
   # The subscription event gets dispatched when it's listed in mutation_in
   mutation_in: [_ModelMutationType!]
@@ -914,10 +1895,10 @@ input PostSubscriptionFilter {
 
   # The subscription event gets only dispatched when some of the field names included in this list have been updated
   updatedFields_contains_some: [String!]
-  node: PostSubscriptionFilterNode
+  node: TimesheetSubscriptionFilterNode
 }
 
-input PostSubscriptionFilterNode {
+input TimesheetSubscriptionFilterNode {
   createdAt: DateTime
 
   # All values that are not equal to given value.
@@ -980,46 +1961,78 @@ input PostSubscriptionFilterNode {
 
   # All values not ending with the given string.
   id_not_ends_with: ID
-  title: String
+  rating: Int
 
   # All values that are not equal to given value.
-  title_not: String
+  rating_not: Int
 
   # All values that are contained in given list.
-  title_in: [String!]
+  rating_in: [Int!]
 
   # All values that are not contained in given list.
-  title_not_in: [String!]
+  rating_not_in: [Int!]
 
   # All values less than the given value.
-  title_lt: String
+  rating_lt: Int
 
   # All values less than or equal the given value.
-  title_lte: String
+  rating_lte: Int
 
   # All values greater than the given value.
-  title_gt: String
+  rating_gt: Int
 
   # All values greater than or equal the given value.
-  title_gte: String
+  rating_gte: Int
+  remark: String
+
+  # All values that are not equal to given value.
+  remark_not: String
+
+  # All values that are contained in given list.
+  remark_in: [String!]
+
+  # All values that are not contained in given list.
+  remark_not_in: [String!]
+
+  # All values less than the given value.
+  remark_lt: String
+
+  # All values less than or equal the given value.
+  remark_lte: String
+
+  # All values greater than the given value.
+  remark_gt: String
+
+  # All values greater than or equal the given value.
+  remark_gte: String
 
   # All values containing the given string.
-  title_contains: String
+  remark_contains: String
 
   # All values not containing the given string.
-  title_not_contains: String
+  remark_not_contains: String
 
   # All values starting with the given string.
-  title_starts_with: String
+  remark_starts_with: String
 
   # All values not starting with the given string.
-  title_not_starts_with: String
+  remark_not_starts_with: String
 
   # All values ending with the given string.
-  title_ends_with: String
+  remark_ends_with: String
 
   # All values not ending with the given string.
-  title_not_ends_with: String
+  remark_not_ends_with: String
+  timeCode: TimesheetCode
+
+  # All values that are not equal to given value.
+  timeCode_not: TimesheetCode
+
+  # All values that are contained in given list.
+  timeCode_in: [TimesheetCode!]
+
+  # All values that are not contained in given list.
+  timeCode_not_in: [TimesheetCode!]
   updatedAt: DateTime
 
   # All values that are not equal to given value.
@@ -1042,106 +2055,59 @@ input PostSubscriptionFilterNode {
 
   # All values greater than or equal the given value.
   updatedAt_gte: DateTime
-  url: String
+  workday: DateTime
 
   # All values that are not equal to given value.
-  url_not: String
+  workday_not: DateTime
 
   # All values that are contained in given list.
-  url_in: [String!]
+  workday_in: [DateTime!]
 
   # All values that are not contained in given list.
-  url_not_in: [String!]
+  workday_not_in: [DateTime!]
 
   # All values less than the given value.
-  url_lt: String
+  workday_lt: DateTime
 
   # All values less than or equal the given value.
-  url_lte: String
+  workday_lte: DateTime
 
   # All values greater than the given value.
-  url_gt: String
+  workday_gt: DateTime
 
   # All values greater than or equal the given value.
-  url_gte: String
-
-  # All values containing the given string.
-  url_contains: String
-
-  # All values not containing the given string.
-  url_not_contains: String
-
-  # All values starting with the given string.
-  url_starts_with: String
-
-  # All values not starting with the given string.
-  url_not_starts_with: String
-
-  # All values ending with the given string.
-  url_ends_with: String
-
-  # All values not ending with the given string.
-  url_not_ends_with: String
-  votes: Int
-
-  # All values that are not equal to given value.
-  votes_not: Int
-
-  # All values that are contained in given list.
-  votes_in: [Int!]
-
-  # All values that are not contained in given list.
-  votes_not_in: [Int!]
-
-  # All values less than the given value.
-  votes_lt: Int
-
-  # All values less than or equal the given value.
-  votes_lte: Int
-
-  # All values greater than the given value.
-  votes_gt: Int
-
-  # All values greater than or equal the given value.
-  votes_gte: Int
+  workday_gte: DateTime
+  document: DocumentFilter
 }
 
-type PostSubscriptionPayload {
+type TimesheetSubscriptionPayload {
   mutation: _ModelMutationType!
-  node: Post
+  node: Timesheet
   updatedFields: [String!]
-  previousValues: PostPreviousValues
+  previousValues: TimesheetPreviousValues
 }
 
-type Query {
-  allFiles(filter: FileFilter, orderBy: FileOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [File!]!
-  allPosts(filter: PostFilter, orderBy: PostOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]!
-  allUsers(filter: UserFilter, orderBy: UserOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): [User!]!
-  _allFilesMeta(filter: FileFilter, orderBy: FileOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
-  _allPostsMeta(filter: PostFilter, orderBy: PostOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
-  _allUsersMeta(filter: UserFilter, orderBy: UserOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): _QueryMeta!
-  File(id: ID, secret: String, url: String): File
-  Post(id: ID): Post
-  User(email: String, id: ID): User
-  user: User
-
-  # Fetches an object given its ID
-  node(
-    # The ID of an object
-    id: ID!
-  ): Node
+type UnsetDocumentOwnerPayload {
+  documentDocument: Document
+  userUser: User
 }
 
-# If authentication was successful the payload contains the user and a token. If unsuccessful this payload is null.
-type SigninPayload {
-  token: String
-  user: User
-}
-
-type Subscription {
-  File(filter: FileSubscriptionFilter): FileSubscriptionPayload
-  Post(filter: PostSubscriptionFilter): PostSubscriptionPayload
-  User(filter: UserSubscriptionFilter): UserSubscriptionPayload
+input UpdateDocument {
+  branch: Branch
+  cellPhone: String
+  dateOfBirth: DateTime
+  department: Department
+  employedDate: DateTime
+  id: ID!
+  idCardNumber: String
+  leaveWithoutPay: Int
+  leaveWithPay: Int
+  savingsAccountID: String
+  savingsBank: String
+  shift: Shift
+  userId: ID
+  timesheetsIds: [ID!]
+  timesheets: [DocumenttimesheetsTimesheet!]
 }
 
 input UpdateFile {
@@ -1149,27 +2115,55 @@ input UpdateFile {
   name: String
 }
 
-input UpdatePost {
+input UpdateTimesheet {
   id: ID!
-  title: String
-  url: String
-  votes: Int
+  rating: Int
+  remark: String
+  timeCode: TimesheetCode
+  workday: DateTime
+  documentId: ID
+  document: TimesheetdocumentDocument
 }
 
 input UpdateUser {
   firstName: String
   id: ID!
   lastName: String
+  nickName: String
+  picture: String
+  role: UserRole
+  documentId: ID
+  document: UserdocumentDocument
 }
 
 type User implements Node {
-  createdAt: DateTime
+  createdAt: DateTime!
+  document(filter: DocumentFilter): Document
   email: String
-  firstName: String!
+  firstName: String
   id: ID!
-  lastName: String!
+  lastName: String
+  nickName: String
   password: String
-  updatedAt: DateTime
+  picture: String
+  role: UserRole
+  updatedAt: DateTime!
+}
+
+input UserdocumentDocument {
+  branch: Branch
+  cellPhone: String
+  dateOfBirth: DateTime
+  department: Department
+  employedDate: DateTime
+  idCardNumber: String
+  leaveWithoutPay: Int
+  leaveWithPay: Int
+  savingsAccountID: String
+  savingsBank: String
+  shift: Shift
+  timesheetsIds: [ID!]
+  timesheets: [DocumenttimesheetsTimesheet!]
 }
 
 input UserFilter {
@@ -1360,6 +2354,46 @@ input UserFilter {
 
   # All values not ending with the given string.
   lastName_not_ends_with: String
+  nickName: String
+
+  # All values that are not equal to given value.
+  nickName_not: String
+
+  # All values that are contained in given list.
+  nickName_in: [String!]
+
+  # All values that are not contained in given list.
+  nickName_not_in: [String!]
+
+  # All values less than the given value.
+  nickName_lt: String
+
+  # All values less than or equal the given value.
+  nickName_lte: String
+
+  # All values greater than the given value.
+  nickName_gt: String
+
+  # All values greater than or equal the given value.
+  nickName_gte: String
+
+  # All values containing the given string.
+  nickName_contains: String
+
+  # All values not containing the given string.
+  nickName_not_contains: String
+
+  # All values starting with the given string.
+  nickName_starts_with: String
+
+  # All values not starting with the given string.
+  nickName_not_starts_with: String
+
+  # All values ending with the given string.
+  nickName_ends_with: String
+
+  # All values not ending with the given string.
+  nickName_not_ends_with: String
   password: String
 
   # All values that are not equal to given value.
@@ -1400,6 +2434,56 @@ input UserFilter {
 
   # All values not ending with the given string.
   password_not_ends_with: String
+  picture: String
+
+  # All values that are not equal to given value.
+  picture_not: String
+
+  # All values that are contained in given list.
+  picture_in: [String!]
+
+  # All values that are not contained in given list.
+  picture_not_in: [String!]
+
+  # All values less than the given value.
+  picture_lt: String
+
+  # All values less than or equal the given value.
+  picture_lte: String
+
+  # All values greater than the given value.
+  picture_gt: String
+
+  # All values greater than or equal the given value.
+  picture_gte: String
+
+  # All values containing the given string.
+  picture_contains: String
+
+  # All values not containing the given string.
+  picture_not_contains: String
+
+  # All values starting with the given string.
+  picture_starts_with: String
+
+  # All values not starting with the given string.
+  picture_not_starts_with: String
+
+  # All values ending with the given string.
+  picture_ends_with: String
+
+  # All values not ending with the given string.
+  picture_not_ends_with: String
+  role: UserRole
+
+  # All values that are not equal to given value.
+  role_not: UserRole
+
+  # All values that are contained in given list.
+  role_in: [UserRole!]
+
+  # All values that are not contained in given list.
+  role_not_in: [UserRole!]
   updatedAt: DateTime
 
   # All values that are not equal to given value.
@@ -1422,6 +2506,7 @@ input UserFilter {
 
   # All values greater than or equal the given value.
   updatedAt_gte: DateTime
+  document: DocumentFilter
 }
 
 enum UserOrderBy {
@@ -1435,20 +2520,35 @@ enum UserOrderBy {
   id_DESC
   lastName_ASC
   lastName_DESC
+  nickName_ASC
+  nickName_DESC
   password_ASC
   password_DESC
+  picture_ASC
+  picture_DESC
+  role_ASC
+  role_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
 
 type UserPreviousValues {
-  createdAt: DateTime
+  createdAt: DateTime!
   email: String
-  firstName: String!
+  firstName: String
   id: ID!
-  lastName: String!
+  lastName: String
+  nickName: String
   password: String
-  updatedAt: DateTime
+  picture: String
+  role: UserRole
+  updatedAt: DateTime!
+}
+
+enum UserRole {
+  ADMIN
+  STAFF
+  MANAGER
 }
 
 input UserSubscriptionFilter {
@@ -1655,6 +2755,46 @@ input UserSubscriptionFilterNode {
 
   # All values not ending with the given string.
   lastName_not_ends_with: String
+  nickName: String
+
+  # All values that are not equal to given value.
+  nickName_not: String
+
+  # All values that are contained in given list.
+  nickName_in: [String!]
+
+  # All values that are not contained in given list.
+  nickName_not_in: [String!]
+
+  # All values less than the given value.
+  nickName_lt: String
+
+  # All values less than or equal the given value.
+  nickName_lte: String
+
+  # All values greater than the given value.
+  nickName_gt: String
+
+  # All values greater than or equal the given value.
+  nickName_gte: String
+
+  # All values containing the given string.
+  nickName_contains: String
+
+  # All values not containing the given string.
+  nickName_not_contains: String
+
+  # All values starting with the given string.
+  nickName_starts_with: String
+
+  # All values not starting with the given string.
+  nickName_not_starts_with: String
+
+  # All values ending with the given string.
+  nickName_ends_with: String
+
+  # All values not ending with the given string.
+  nickName_not_ends_with: String
   password: String
 
   # All values that are not equal to given value.
@@ -1695,6 +2835,56 @@ input UserSubscriptionFilterNode {
 
   # All values not ending with the given string.
   password_not_ends_with: String
+  picture: String
+
+  # All values that are not equal to given value.
+  picture_not: String
+
+  # All values that are contained in given list.
+  picture_in: [String!]
+
+  # All values that are not contained in given list.
+  picture_not_in: [String!]
+
+  # All values less than the given value.
+  picture_lt: String
+
+  # All values less than or equal the given value.
+  picture_lte: String
+
+  # All values greater than the given value.
+  picture_gt: String
+
+  # All values greater than or equal the given value.
+  picture_gte: String
+
+  # All values containing the given string.
+  picture_contains: String
+
+  # All values not containing the given string.
+  picture_not_contains: String
+
+  # All values starting with the given string.
+  picture_starts_with: String
+
+  # All values not starting with the given string.
+  picture_not_starts_with: String
+
+  # All values ending with the given string.
+  picture_ends_with: String
+
+  # All values not ending with the given string.
+  picture_not_ends_with: String
+  role: UserRole
+
+  # All values that are not equal to given value.
+  role_not: UserRole
+
+  # All values that are contained in given list.
+  role_in: [UserRole!]
+
+  # All values that are not contained in given list.
+  role_not_in: [UserRole!]
   updatedAt: DateTime
 
   # All values that are not equal to given value.
@@ -1717,6 +2907,7 @@ input UserSubscriptionFilterNode {
 
   # All values greater than or equal the given value.
   updatedAt_gte: DateTime
+  document: DocumentFilter
 }
 
 type UserSubscriptionPayload {
