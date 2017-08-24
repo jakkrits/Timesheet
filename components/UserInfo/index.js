@@ -22,9 +22,6 @@ class UserInfo extends React.Component {
         </div>
       );
     }
-    console.error('*******************');
-    console.log(this.props);
-    console.error('*******************');
     return (
       <Columns isCentered>
         <Column isSize="2" />
@@ -32,7 +29,7 @@ class UserInfo extends React.Component {
           <h1>INFO OF USER HERE</h1>
 
           {data.user.image === null
-            ? <ImageUploader />
+            ? <ImageUploader userId={data.user.id} />
             : <UserImage userId={data.user.id} />}
         </Column>
         <Column isSize="4">

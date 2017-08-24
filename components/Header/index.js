@@ -25,16 +25,14 @@ class Header extends React.Component {
     <div>
       <div className="field is-grouped">
         <p className="control">
-          <Link prefetch route="/profile" passHref>
-            <a className="button is-primary">
-              <span className="icon">
-                <i className="fa fa-user-circle" />
-              </span>
-              <span>
-                {this.props.data.user.firstName}
-              </span>
-            </a>
-          </Link>
+          <a className="button is-primary" href="/profile">
+            <span className="icon">
+              <i className="fa fa-user-circle" />
+            </span>
+            <span>
+              {this.props.data.user.firstName}
+            </span>
+          </a>
         </p>
         <p className="control">
           <a
