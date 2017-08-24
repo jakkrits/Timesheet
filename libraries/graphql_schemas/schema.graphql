@@ -41,8 +41,6 @@ input CreateDocument {
   savingsAccountID: String
   savingsBank: String
   shift: Shift
-  imageId: ID
-  image: DocumentimageFile
   userId: ID
   timesheetsIds: [ID!]
   timesheets: [DocumenttimesheetsTimesheet!]
@@ -50,9 +48,7 @@ input CreateDocument {
 
 input CreateFile {
   name: String!
-  docId: ID
-  doc: FiledocDocument
-  userId: ID
+  ownerId: ID
 }
 
 input CreateTimesheet {
@@ -95,7 +91,6 @@ type Document implements Node {
   employedDate: DateTime
   id: ID!
   idCardNumber: String
-  image(filter: FileFilter): File
   leaveWithoutPay: Int
   leaveWithPay: Int
   savingsAccountID: String
@@ -477,16 +472,10 @@ input DocumentFilter {
 
   # All values greater than or equal the given value.
   updatedAt_gte: DateTime
-  image: FileFilter
   timesheets_every: TimesheetFilter
   timesheets_some: TimesheetFilter
   timesheets_none: TimesheetFilter
   user: UserFilter
-}
-
-input DocumentimageFile {
-  name: String!
-  userId: ID
 }
 
 enum DocumentOrderBy {
@@ -921,7 +910,6 @@ input DocumentSubscriptionFilterNode {
 
   # All values greater than or equal the given value.
   updatedAt_gte: DateTime
-  image: FileFilter
   timesheets_every: TimesheetFilter
   timesheets_some: TimesheetFilter
   timesheets_none: TimesheetFilter
@@ -945,31 +933,13 @@ input DocumenttimesheetsTimesheet {
 type File implements Node {
   contentType: String!
   createdAt: DateTime!
-  doc(filter: DocumentFilter): Document!
   id: ID!
   name: String!
+  owner(filter: UserFilter): User
   secret: String!
   size: Int!
   updatedAt: DateTime!
   url: String!
-  user(filter: UserFilter): User
-}
-
-input FiledocDocument {
-  branch: Branch
-  cellPhone: String
-  dateOfBirth: DateTime
-  department: Department
-  employedDate: DateTime
-  idCardNumber: String
-  leaveWithoutPay: Int
-  leaveWithPay: Int
-  savingsAccountID: String
-  savingsBank: String
-  shift: Shift
-  userId: ID
-  timesheetsIds: [ID!]
-  timesheets: [DocumenttimesheetsTimesheet!]
 }
 
 input FileFilter {
@@ -1244,8 +1214,7 @@ input FileFilter {
 
   # All values not ending with the given string.
   url_not_ends_with: String
-  doc: DocumentFilter
-  user: UserFilter
+  owner: UserFilter
 }
 
 enum FileOrderBy {
@@ -1566,8 +1535,7 @@ input FileSubscriptionFilterNode {
 
   # All values not ending with the given string.
   url_not_ends_with: String
-  doc: DocumentFilter
-  user: UserFilter
+  owner: UserFilter
 }
 
 type FileSubscriptionPayload {
@@ -1578,11 +1546,11 @@ type FileSubscriptionPayload {
 }
 
 type Mutation {
-  createDocument(branch: Branch, cellPhone: String, dateOfBirth: DateTime, department: Department, employedDate: DateTime, idCardNumber: String, leaveWithoutPay: Int, leaveWithPay: Int, savingsAccountID: String, savingsBank: String, shift: Shift, imageId: ID, image: DocumentimageFile, userId: ID, timesheetsIds: [ID!], timesheets: [DocumenttimesheetsTimesheet!]): Document
-  createFile(name: String!, docId: ID, doc: FiledocDocument, userId: ID): File
+  createDocument(branch: Branch, cellPhone: String, dateOfBirth: DateTime, department: Department, employedDate: DateTime, idCardNumber: String, leaveWithoutPay: Int, leaveWithPay: Int, savingsAccountID: String, savingsBank: String, shift: Shift, userId: ID, timesheetsIds: [ID!], timesheets: [DocumenttimesheetsTimesheet!]): Document
+  createFile(name: String!, ownerId: ID): File
   createTimesheet(rating: Int, remark: String, timeCode: TimesheetCode, workday: DateTime, documentId: ID, document: TimesheetdocumentDocument): Timesheet
-  updateDocument(branch: Branch, cellPhone: String, dateOfBirth: DateTime, department: Department, employedDate: DateTime, id: ID!, idCardNumber: String, leaveWithoutPay: Int, leaveWithPay: Int, savingsAccountID: String, savingsBank: String, shift: Shift, imageId: ID, image: DocumentimageFile, userId: ID, timesheetsIds: [ID!], timesheets: [DocumenttimesheetsTimesheet!]): Document
-  updateFile(id: ID!, name: String, docId: ID, doc: FiledocDocument, userId: ID): File
+  updateDocument(branch: Branch, cellPhone: String, dateOfBirth: DateTime, department: Department, employedDate: DateTime, id: ID!, idCardNumber: String, leaveWithoutPay: Int, leaveWithPay: Int, savingsAccountID: String, savingsBank: String, shift: Shift, userId: ID, timesheetsIds: [ID!], timesheets: [DocumenttimesheetsTimesheet!]): Document
+  updateFile(id: ID!, name: String, ownerId: ID): File
   updateTimesheet(id: ID!, rating: Int, remark: String, timeCode: TimesheetCode, workday: DateTime, documentId: ID, document: TimesheetdocumentDocument): Timesheet
   updateUser(firstName: String, id: ID!, lastName: String, nickName: String, role: UserRole, documentId: ID, document: UserdocumentDocument, imageId: ID, image: UserimageFile): User
   updateOrCreateDocument(update: UpdateDocument!, create: CreateDocument!): Document
@@ -1594,10 +1562,9 @@ type Mutation {
   deleteTimesheet(id: ID!): Timesheet
   deleteUser(id: ID!): User
   setDocumentOwner(userUserId: ID!, documentDocumentId: ID!): SetDocumentOwnerPayload
-  setImageOnDoc(imageFileId: ID!, docDocumentId: ID!): SetImageOnDocPayload
-  setUserImage(imageFileId: ID!, userUserId: ID!): SetUserImagePayload
+  setImageOwner(imageFileId: ID!, ownerUserId: ID!): SetImageOwnerPayload
   unsetDocumentOwner(userUserId: ID!, documentDocumentId: ID!): UnsetDocumentOwnerPayload
-  unsetUserImage(imageFileId: ID!, userUserId: ID!): UnsetUserImagePayload
+  unsetImageOwner(imageFileId: ID!, ownerUserId: ID!): UnsetImageOwnerPayload
   addToTimesheetOnDocument(documentDocumentId: ID!, timesheetsTimesheetId: ID!): AddToTimesheetOnDocumentPayload
   removeFromTimesheetOnDocument(documentDocumentId: ID!, timesheetsTimesheetId: ID!): RemoveFromTimesheetOnDocumentPayload
   signinUser(email: AUTH_PROVIDER_EMAIL): SigninPayload!
@@ -1642,13 +1609,8 @@ type SetDocumentOwnerPayload {
   userUser: User
 }
 
-type SetImageOnDocPayload {
-  docDocument: Document
-  imageFile: File
-}
-
-type SetUserImagePayload {
-  userUser: User
+type SetImageOwnerPayload {
+  ownerUser: User
   imageFile: File
 }
 
@@ -1708,8 +1670,6 @@ input TimesheetdocumentDocument {
   savingsAccountID: String
   savingsBank: String
   shift: Shift
-  imageId: ID
-  image: DocumentimageFile
   userId: ID
   timesheetsIds: [ID!]
   timesheets: [DocumenttimesheetsTimesheet!]
@@ -2144,8 +2104,8 @@ type UnsetDocumentOwnerPayload {
   userUser: User
 }
 
-type UnsetUserImagePayload {
-  userUser: User
+type UnsetImageOwnerPayload {
+  ownerUser: User
   imageFile: File
 }
 
@@ -2162,8 +2122,6 @@ input UpdateDocument {
   savingsAccountID: String
   savingsBank: String
   shift: Shift
-  imageId: ID
-  image: DocumentimageFile
   userId: ID
   timesheetsIds: [ID!]
   timesheets: [DocumenttimesheetsTimesheet!]
@@ -2172,9 +2130,7 @@ input UpdateDocument {
 input UpdateFile {
   id: ID!
   name: String
-  docId: ID
-  doc: FiledocDocument
-  userId: ID
+  ownerId: ID
 }
 
 input UpdateTimesheet {
@@ -2225,8 +2181,6 @@ input UserdocumentDocument {
   savingsAccountID: String
   savingsBank: String
   shift: Shift
-  imageId: ID
-  image: DocumentimageFile
   timesheetsIds: [ID!]
   timesheets: [DocumenttimesheetsTimesheet!]
 }
@@ -2537,8 +2491,6 @@ input UserFilter {
 
 input UserimageFile {
   name: String!
-  docId: ID
-  doc: FiledocDocument
 }
 
 enum UserOrderBy {

@@ -7,9 +7,11 @@ query currentUser {
     email
     role
     image {
+      id
       name
     }
     document {
+      id
       branch
       cellPhone
       dateOfBirth
@@ -22,6 +24,7 @@ query currentUser {
       savingsAccountID
       shift
       timesheets {
+        id
         rating
         timeCode
         workday
