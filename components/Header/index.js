@@ -7,7 +7,7 @@ import connect from './store';
 // eslint-disable-next-line
 class Header extends React.Component {
   componentWillReceiveProps(props) {
-    console.error(props);
+    // logout current loggedin if user on server deleted
     if (props.data.user === null && props.authenticated) {
       props.actions.logout();
     }
