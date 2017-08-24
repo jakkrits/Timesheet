@@ -6,6 +6,13 @@ import connect from './store';
 
 // eslint-disable-next-line
 class Header extends React.Component {
+  componentWillReceiveProps(props) {
+    console.error(props);
+    if (props.data.user === null && props.authenticated) {
+      props.actions.logout();
+    }
+  }
+
   toggleBurger = () => {
     // document.querySelector('.nav-menu').classList.toggle('is-active');
     const nav = document.getElementById('navMenuTransparent');
