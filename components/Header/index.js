@@ -8,8 +8,10 @@ import connect from './store';
 class Header extends React.Component {
   componentWillReceiveProps(props) {
     // logout current loggedin if user on server deleted
-    if (props.data.user === null && props.authenticated) {
-      props.actions.logout();
+    if (!props.data.loading) {
+      if (props.data.user === null && props.authenticated) {
+        props.actions.logout();
+      }
     }
   }
 
