@@ -16,7 +16,7 @@ class UserImage extends React.Component {
     const imageId = this.props.getImage.user.image.id;
     this.props
       .removeImage({ variables: { imageId } })
-      .then(() => console.log('DELETED'));
+      .then(() => console.log('DELETED')); // eslint-disable-line
   };
 
   render() {
@@ -32,12 +32,11 @@ class UserImage extends React.Component {
         </div>
       );
     }
-    console.warn(this.props);
     const imageUrl = getPhotoUrl(this.props.getImage.user.image.url, '256');
     return (
       <div className="card">
         <div className="card-image">
-          <figure className="avatar is-256x256">
+          <figure className="avatar is-square">
             <img
               style={{
                 borderRadius: '50%',

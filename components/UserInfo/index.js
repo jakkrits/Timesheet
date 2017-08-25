@@ -23,17 +23,17 @@ class UserInfo extends React.Component {
       );
     }
     return (
-      <Columns isCentered>
-        <Column isSize="1" />
-        <Column isSize="5" hasTextAlign="centered">
+      <Columns isCentered isDesktop>
+        <Column />
+        <Column isSize="1/3" hasTextAlign="centered">
           {data.user.image === null
             ? <ImageUploader userId={data.user.id} />
             : <UserImage userId={data.user.id} />}
         </Column>
-        <Column isSize="5" hasTextAlign="centered">
+        <Column isSize="1/3" hasTextAlign="centered">
           <h2>Column 2</h2>
         </Column>
-        <Column isSize="1" />
+        <Column />
       </Columns>
     );
   }
