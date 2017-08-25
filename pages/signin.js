@@ -1,5 +1,6 @@
 import React from 'react';
 import { Columns, Column } from 'bloomer';
+import Auth0Lock from 'auth0-lock';
 import SignInForm from '../components/SignInForm';
 import withData from '../libraries/withData';
 import DefaultCon from '../containers/Default';
@@ -15,6 +16,44 @@ class Signin extends React.Component {
       Redirect(context, '/');
     }
   }
+
+  componentDidMount() {
+    const lock = new Auth0Lock(
+      'nRF8JVHj9lMFrY2uelAeisnVMmO7kQzY',
+      'LvyXxl1T4S3uFFzzn39GfKygBzptASCT4br75nwhmfvWJ3uD-lC_OZOmry62vwRa',
+      {
+        auth: {
+          // redirectUrl: `${location.origin}/login?r=${this.props.pathname}`,
+          responseType: 'token'
+        },
+        allowSignUp: false,
+        theme: {
+          logo: 'https://image.flaticon.com/icons/svg/325/325559.svg'
+        },
+        languageDictionary: {
+          title: 'ชิวเล้าจ์ล็อกอิน'
+        }
+      }
+    );
+    this.lock = lock;
+
+    lock.on('authenticated', result => {
+      lock.getUserInfo(result.accessToken, (error, profile) => {
+        if (error) {
+          console.error('getUserInfo error', error);
+          return;
+        }
+        console.error(JSON.stringify(profile, null, 4));
+        this.signinOrCreateUser(result.idToken, profile);
+      });
+    });
+  }
+
+  triggerLogin = e => {
+    e.preventDefault();
+    this.lock.show();
+  };
+
   render() {
     return (
       <DefaultCon title="ล็อคอิน" {...this.props}>
@@ -22,6 +61,17 @@ class Signin extends React.Component {
           <Column />
           <Column isSize="4" hasTextAlign="centered">
             <SignInForm />
+            <br />
+            <a
+              className="button is-info"
+              onClick={this.triggerLogin}
+              role="presentation"
+            >
+              {' '}<span className="icon">
+                <i className="fa fa-facebook" />
+              </span>{' '}
+              <span> Login with Facebook </span>
+            </a>
             <hr />
             <p>
               ต้องการลงทะเบียน?{' '}
