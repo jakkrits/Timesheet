@@ -4,7 +4,7 @@ const AppFooter = () =>
   <Footer
     id="footer"
     style={{
-      height: '180'
+      height: '180px'
     }}
   >
     <div className="container">

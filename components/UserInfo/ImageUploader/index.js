@@ -39,8 +39,7 @@ class ImageUploader extends React.Component {
     const { imageId } = this.state;
     const userId = this.props.userId;
     await this.props.uploadImage({ variables: { userId, imageId } });
-
-    window.location.pathname = '/';
+    window.location.pathname = '/profile';
   };
 
   render() {

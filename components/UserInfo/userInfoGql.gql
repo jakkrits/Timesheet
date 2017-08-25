@@ -8,7 +8,7 @@ query currentUser {
     role
     image {
       id
-      name
+      name 
     }
     document {
       id
