@@ -22,20 +22,19 @@ class UserInfo extends React.Component {
         </div>
       );
     }
+    console.log(this.props);
     return (
       <Columns isCentered>
-        <Column isSize="2" />
-        <Column isSize="4">
-          <h1>INFO OF USER HERE</h1>
-
+        <Column isSize="1" />
+        <Column isSize="5" hasTextAlign="centered">
           {data.user.image === null
             ? <ImageUploader userId={data.user.id} />
             : <UserImage userId={data.user.id} />}
         </Column>
-        <Column isSize="4">
+        <Column isSize="5" hasTextAlign="centered">
           <h2>Column 2</h2>
         </Column>
-        <Column isSize="2" />
+        <Column isSize="1" />
       </Columns>
     );
   }

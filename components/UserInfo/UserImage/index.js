@@ -1,7 +1,6 @@
 import React from 'react';
 import { graphql, gql } from 'react-apollo';
 import PropTypes from 'prop-types';
-import { Image } from 'bloomer';
 
 const getPhotoUrl = (url, width) => {
   const imageSize = `x${width}`;
@@ -27,7 +26,17 @@ class UserImage extends React.Component {
       );
     }
     const imageUrl = getPhotoUrl(this.props.getImage.user.image.url, '256');
-    return <Image isSize="256x256" src={imageUrl} />;
+    return (
+      <img
+        style={{
+          'border-radius': '50%',
+          'object-fit': 'cover',
+          height: '100%'
+        }}
+        src={imageUrl}
+        alt="thumb"
+      />
+    );
   }
 }
 
