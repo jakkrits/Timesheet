@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import NProgress from 'nprogress';
 import Router from 'next/router';
-import { Container } from 'bloomer';
 import App from '../components/App';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -30,9 +29,14 @@ class Default extends React.Component {
           </title>
         </Helmet>
         <Header pathname={this.props.url.pathname} />
-        <Container>
+        <div
+          style={{
+            minHeight: 'calc(100vh - 200px)',
+            padding: '40px 40px 40px 40px'
+          }}
+        >
           {this.props.children}
-        </Container>
+        </div>
         <Footer />
       </App>
     );
