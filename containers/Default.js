@@ -12,7 +12,7 @@ import Footer from '../components/Footer';
 class Default extends React.Component {
   componentDidMount() {
     Router.onRouteChangeStart = url => {
-      console.log(`Loading: ${url}`); // eslint-disable-line
+      console.log('Loading', url); // eslint-disable-line
       NProgress.start();
     };
     Router.onRouteChangeComplete = () => NProgress.done();

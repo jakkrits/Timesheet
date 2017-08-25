@@ -29,12 +29,12 @@ class UserImage extends React.Component {
     return (
       <img
         style={{
-          'border-radius': '50%',
-          'object-fit': 'cover',
+          borderRadius: '50%',
+          objectFit: 'cover',
           height: '100%'
         }}
         src={imageUrl}
-        alt="thumb"
+        alt="thumbnail"
       />
     );
   }
