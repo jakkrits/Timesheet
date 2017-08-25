@@ -27,15 +27,21 @@ class UserImage extends React.Component {
     }
     const imageUrl = getPhotoUrl(this.props.getImage.user.image.url, '256');
     return (
-      <img
-        style={{
-          'border-radius': '50%',
-          'object-fit': 'cover',
-          height: '100%'
-        }}
-        src={imageUrl}
-        alt="thumb"
-      />
+      <div>
+        <div className="box">
+          <img
+            style={{
+              'border-radius': '50%',
+              'object-fit': 'cover',
+              height: '100%'
+            }}
+            src={imageUrl}
+            alt="thumb"
+          />
+          <p>ควย</p>
+        </div>
+        <p>แตดหมา</p>
+      </div>
     );
   }
 }
