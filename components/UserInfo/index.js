@@ -9,7 +9,6 @@ import ImageUploader from './ImageUploader';
 class UserInfo extends React.Component {
   render() {
     const { data } = this.props;
-    console.error(this.props);
     if (data.loading) {
       // return <Loading />;
       return (
