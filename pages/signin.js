@@ -18,10 +18,10 @@ class Signin extends React.Component {
   render() {
     return (
       <DefaultCon title="ล็อคอิน" {...this.props}>
-        <SignInForm />
         <Columns isCentered>
           <Column />
           <Column isSize="4" hasTextAlign="centered">
+            <SignInForm />
             <hr />
             <p>
               ต้องการลงทะเบียน?{' '}

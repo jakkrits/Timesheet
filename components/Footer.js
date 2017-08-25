@@ -3,7 +3,13 @@ import { Footer } from 'bloomer';
 const AppFooter = () =>
   <Footer
     id="footer"
-    style={{ position: 'fixed', bottom: '0px', left: '0px', width: '100%' }}
+    style={{
+      position: 'fixed',
+      bottom: '0px',
+      left: '0px',
+      width: '100%',
+      height: '80px'
+    }}
   >
     <div className="container">
       <div className="content has-text-centered">

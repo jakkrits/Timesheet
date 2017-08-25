@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import { Columns, Column } from 'bloomer';
 import AuthFields from '../AuthFields';
 import validate from '../AuthFields/validation';
 import connect from './store';
@@ -87,6 +86,21 @@ class SignUpForm extends React.Component {
       });
   }
 
+  returnErrorMessage = () => {
+    if (
+      Object.keys(this.state.errors).length === 0 &&
+      !this.state.serverErrors.message
+    ) {
+      return <p />;
+    }
+    return (
+      <span className="tag is-danger">
+        {' '}{Object.keys(this.state.errors).length === 0 &&
+          this.state.serverErrors.message}
+      </span>
+    );
+  };
+
   render() {
     const fields = this.formFields;
     // Packing all the necessary auth field states
@@ -111,14 +125,8 @@ class SignUpForm extends React.Component {
           touched={this.state.touched}
           handleTouch={this.handleTouch}
         />
-        <Columns isCentered>
-          <Column />
-          <Column isSize="6" hasTextAlign="centered">
-            {Object.keys(this.state.errors).length === 0 &&
-              this.state.serverErrors.message}
-          </Column>
-          <Column />
-        </Columns>
+        <br />
+        {this.returnErrorMessage()}
       </div>
     );
   }

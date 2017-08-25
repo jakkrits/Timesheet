@@ -3,8 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
-  Columns,
-  Column,
   Control,
   Field,
   Input,
@@ -32,18 +30,17 @@ const AuthFields = props => {
         onFocus={handleTouch}
         style={{ margin: '3px' }}
       />
-      {errors &&
+     <span style={{color: 'red'}}>
+       {errors &&
         <div>
           {errors[field.attr.name]}
-        </div>}
+        </div>} 
+     </span>
     </div>
   );
   const authMethod =
     (selectFields === 'signinFields' && 'Sign In') || 'Sign Up';
   return (
-    <Columns isCentered>
-      <Column isSize="3" />
-      <Column hasTextAlign="centered">
         <Field>
           <Label isSize="medium">
             {authMethod}
@@ -61,9 +58,6 @@ const AuthFields = props => {
           </Field>
           </form>
         </Field>
-      </Column>
-      <Column isSize="3" />
-    </Columns>
   );
 };
 
