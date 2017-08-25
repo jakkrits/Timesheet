@@ -22,7 +22,6 @@ class UserInfo extends React.Component {
         </div>
       );
     }
-    console.log(this.props);
     return (
       <Columns isCentered>
         <Column isSize="1" />

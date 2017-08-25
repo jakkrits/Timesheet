@@ -31,8 +31,8 @@ class UserImage extends React.Component {
         <div className="box">
           <img
             style={{
-              'border-radius': '50%',
-              'object-fit': 'cover',
+              borderRadius: '50%',
+              objectFit: 'cover',
               height: '100%'
             }}
             src={imageUrl}
