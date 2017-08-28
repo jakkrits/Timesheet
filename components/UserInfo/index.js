@@ -26,9 +26,35 @@ class UserInfo extends React.Component {
       <Columns isCentered isDesktop>
         <Column />
         <Column isSize="1/3" hasTextAlign="centered">
-          {data.user.image === null
-            ? <ImageUploader userId={data.user.id} />
-            : <UserImage userId={data.user.id} />}
+          <div className="card">
+            <div className="card-image">
+              {data.user.image === null
+                ? <ImageUploader userId={data.user.id} />
+                : <UserImage userId={data.user.id} />}
+            </div>
+            <div className="card-content">
+              {' '}<div className="media">
+                <div className="media-left">
+                  <figure className="image is-48x48">
+                    <img
+                      src="http://bulma.io/images/placeholders/96x96.png"
+                      alt="placeholderhere"
+                    />
+                  </figure>
+                </div>
+                <div className="media-content">
+                  <p className="title is-4">John Smith</p>
+                  <p className="subtitle is-6">@johnsmith</p>
+                </div>
+              </div>{' '}
+              <div className="content">
+                {' '}Lorem ipsum dolor sit amet, consectetur adipiscing
+                elit.Phasellus nec iaculis mauris. <a> @bulmaio </a>.
+                <a>#css</a> <a>#responsive</a> <br />{' '}
+                <small>11:09 PM - 1 Jan 2016</small>{' '}
+              </div>
+            </div>
+          </div>
         </Column>
         <Column isSize="1/3" hasTextAlign="centered">
           <h2>Column 2</h2>

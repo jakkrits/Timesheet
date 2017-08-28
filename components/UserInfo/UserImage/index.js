@@ -16,7 +16,8 @@ class UserImage extends React.Component {
     const imageId = this.props.getImage.user.image.id;
     this.props
       .removeImage({ variables: { imageId } })
-      .then(() => console.log('DELETED')); // eslint-disable-line
+      .then(() => console.log('DELETED')); // eslint-disable-line 
+    window.location.pathname = '/profile'; // TODO: // Workaround Graphcool issue
   };
 
   render() {
@@ -34,52 +35,24 @@ class UserImage extends React.Component {
     }
     const imageUrl = getPhotoUrl(this.props.getImage.user.image.url, '256');
     return (
-      <div className="card">
-        <div className="card-image">
-          <figure className="avatar is-square">
-            <img
-              style={{
-                borderRadius: '50%',
-                objectFit: 'cover',
-                height: '100%',
-                position: 'relative',
-                padding: '15px 15px 15px 15px'
-              }}
-              src={imageUrl}
-              alt="thumbnail"
-            />
-            <div className="overlay" />
-            <div className="hover_delete_button">
-              {/* eslint-disable-next-line */}
-              <a role="presentation" onClick={this.removeUserImage}>
-                {' '}Delete{' '}
-              </a>
-            </div>
-          </figure>
-        </div>
-        <div className="card-content">
-          <div className="media">
-            <div className="media-left">
-              <figure className="image is-48x48">
-                <img
-                  src="http://bulma.io/images/placeholders/96x96.png"
-                  alt="placeholderhere"
-                />
-              </figure>
-            </div>
-            <div className="media-content">
-              <p className="title is-4">John Smith</p>
-              <p className="subtitle is-6">@johnsmith</p>
-            </div>
-          </div>
-
-          <div className="content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            nec iaculis mauris. <a>@bulmaio</a>.
-            <a>#css</a> <a>#responsive</a>
-            <br />
-            <small>11:09 PM - 1 Jan 2016</small>
-          </div>
+      <figure className="avatar is-square">
+        <img
+          style={{
+            borderRadius: '50%',
+            objectFit: 'cover',
+            height: '100%',
+            position: 'relative',
+            padding: '15px 15px 15px 15px'
+          }}
+          src={imageUrl}
+          alt="thumbnail"
+        />
+        <div className="overlay" />
+        <div className="hover_delete_button">
+          {/* eslint-disable-next-line */}
+          <a role="presentation" onClick={this.removeUserImage}>
+            {' '}Delete{' '}
+          </a>
         </div>
         <style jsx>{`
           a {
@@ -118,7 +91,7 @@ class UserImage extends React.Component {
             opacity: 1;
           }
         `}</style>
-      </div>
+      </figure>
     );
   }
 }
