@@ -10,16 +10,16 @@ class ImageUploader extends React.Component {
   };
 
   state = {
-    description: '',
     imageUrl: '',
-    imageId: ''
+    imageId: '',
+    uploading: false
   };
 
   onDrop = files => {
     // prepare form data, use data key!
     const data = new FormData();
     data.append('data', files[0]);
-
+    this.setState({ uploading: true });
     // use the file endpoint
     fetch('https://api.graph.cool/file/v1/cj6qmk7l90vvf0152k5al8hn3', {
       method: 'POST',
@@ -30,9 +30,10 @@ class ImageUploader extends React.Component {
         this.setState({
           imageId: image.id,
           imageUrl: image.url,
-          description: image.id
+          uploading: false
         });
-      });
+      })
+      .catch(() => this.setState({ uploading: false }));
   };
 
   handlePost = async () => {
@@ -43,15 +44,23 @@ class ImageUploader extends React.Component {
   };
 
   render() {
+    if (this.state.uploading) {
+      return (
+        <a
+          className="button is-loading is-large is-unselectable"
+          style={{
+            margin: 'auto',
+            width: '100%'
+          }}
+        >
+          Loading
+        </a>
+      );
+    }
+
     return (
-      <div className="w-100 pa4 flex justify-center">
-        <div style={{ maxWidth: 400 }} className="">
-          <input
-            className="w-100 pa3 mv2"
-            value={this.state.description}
-            placeholder="Description"
-            onChange={e => this.setState({ description: e.target.value })}
-          />
+      <div>
+        <div>
           {!this.state.imageId &&
             <Dropzone onDrop={this.onDrop} accept="image/*" multiple={false}>
               <div>Drop an image or click to choose</div>
@@ -63,14 +72,17 @@ class ImageUploader extends React.Component {
               className="w-100 mv3"
               alt="user thumbnail"
             />}
-          {this.state.description &&
+          {this.state.imageId &&
             this.state.imageUrl &&
-            <button
-              className="pa3 bg-black-10 bn dim ttu pointer"
-              onClick={this.handlePost}
-            >
-              Post
-            </button>}
+            <span>
+              {' '}<button
+                className="pa3 bg-black-10 bn dim ttu pointer"
+                onClick={this.handlePost}
+              >
+                อัพโหลด
+              </button>{' '}
+              <button>cancel</button>{' '}
+            </span>}
         </div>
       </div>
     );
