@@ -82,17 +82,23 @@ class ImageUploader extends React.Component {
               role="presentation"
               className="w-100 mv3"
               alt="user thumbnail"
+              style={{ 'padding-bottom': '10px' }}
             />}
           {this.state.imageId &&
             this.state.imageUrl &&
             <span>
               {' '}<button
-                className="pa3 bg-black-10 bn dim ttu pointer"
+                className="button is-primary"
                 onClick={this.handlePost}
               >
                 อัพโหลด
               </button>{' '}
-              <button onClick={this.handleCancel}>cancel</button>{' '}
+              <button
+                className="button is-danger is-outlined"
+                onClick={this.handleCancel}
+              >
+                ยกเลิก
+              </button>{' '}
             </span>}
         </div>
         <style jsx>{`
