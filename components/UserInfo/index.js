@@ -25,7 +25,7 @@ class UserInfo extends React.Component {
     return (
       <Columns isCentered isDesktop>
         <Column />
-        <Column isSize="1/3">
+        <Column isSize="1/3" hasTextAlign="centered">
           <div className="card">
             <div className="card-image">
               {data.user.image === null
@@ -49,7 +49,9 @@ class UserInfo extends React.Component {
                 </div>
               </div>{' '}
               <div className="content">
-                {' '}<span className="icon is-medium">
+                {' '}<p>{data.user.document.branch}</p>
+                <p>{data.user.email}</p>
+                <span className="icon is-medium">
                   <i className="fa fa-mobile" />
                 </span>
                 <small>{data.user.document.cellPhone}</small>
