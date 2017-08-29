@@ -43,6 +43,14 @@ class ImageUploader extends React.Component {
     window.location.pathname = '/profile';
   };
 
+  handleCancel = () => {
+    this.setState({
+      imageId: '',
+      imageUrl: '',
+      uploading: false
+    });
+  };
+
   render() {
     if (this.state.uploading) {
       return (
@@ -51,16 +59,22 @@ class ImageUploader extends React.Component {
     }
 
     return (
-      <div>
+      <div className="dropzone">
         <div className="box">
           {!this.state.imageId &&
-            <Dropzone onDrop={this.onDrop} accept="image/*" multiple={false}>
+            <Dropzone
+              style={{ height: '300px' }}
+              onDrop={this.onDrop}
+              accept="image/*"
+              multiple={false}
+            >
               <p
                 className="has-text-grey"
                 style={{ position: 'relative', top: '40%' }}
               >
                 วางรูปหรือคลิกเพื่ออัพโหลด
               </p>
+              <div className="overlay" />
             </Dropzone>}
           {this.state.imageUrl &&
             <img
@@ -78,13 +92,25 @@ class ImageUploader extends React.Component {
               >
                 อัพโหลด
               </button>{' '}
-              <button>cancel</button>{' '}
+              <button onClick={this.handleCancel}>cancel</button>{' '}
             </span>}
         </div>
         <style jsx>{`
             a {
               margin: auto,
               width: 100%
+            }
+            .dropzone:hover .overlay {
+              background: rgba(56, 62, 74, 0.50);
+            }
+            .overlay {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: rgba(0, 0, 0, 0);
+              transition: background 0.5s ease;
             }
         `}</style>
       </div>
