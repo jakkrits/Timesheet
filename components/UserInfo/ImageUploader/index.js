@@ -46,24 +46,21 @@ class ImageUploader extends React.Component {
   render() {
     if (this.state.uploading) {
       return (
-        <a
-          className="button is-loading is-large is-unselectable"
-          style={{
-            margin: 'auto',
-            width: '100%'
-          }}
-        >
-          Loading
-        </a>
+        <a className="button is-loading is-large is-unselectable">Loading</a>
       );
     }
 
     return (
       <div>
-        <div>
+        <div className="box">
           {!this.state.imageId &&
             <Dropzone onDrop={this.onDrop} accept="image/*" multiple={false}>
-              <div>Drop an image or click to choose</div>
+              <p
+                className="has-text-grey"
+                style={{ position: 'relative', top: '40%' }}
+              >
+                วางรูปหรือคลิกเพื่ออัพโหลด
+              </p>
             </Dropzone>}
           {this.state.imageUrl &&
             <img
@@ -84,6 +81,12 @@ class ImageUploader extends React.Component {
               <button>cancel</button>{' '}
             </span>}
         </div>
+        <style jsx>{`
+            a {
+              margin: auto,
+              width: 100%
+            }
+        `}</style>
       </div>
     );
   }
