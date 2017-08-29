@@ -4,7 +4,6 @@ import { Columns, Column } from 'bloomer';
 import connect from './store';
 import UserImage from './UserImage';
 import ImageUploader from './ImageUploader';
-
 // eslint-disable-next-line
 class UserInfo extends React.Component {
   render() {
@@ -26,7 +25,7 @@ class UserInfo extends React.Component {
     return (
       <Columns isCentered isDesktop>
         <Column />
-        <Column isSize="1/3" hasTextAlign="centered">
+        <Column isSize="1/3">
           <div className="card">
             <div className="card-image">
               {data.user.image === null
@@ -36,23 +35,24 @@ class UserInfo extends React.Component {
             <div className="card-content">
               {' '}<div className="media">
                 <div className="media-left">
-                  <figure className="image is-48x48">
-                    <img
-                      src="http://bulma.io/images/placeholders/96x96.png"
-                      alt="placeholderhere"
-                    />
-                  </figure>
+                  <span className="tag is-danger">
+                    {data.user.role}
+                  </span>
                 </div>
                 <div className="media-content">
-                  <p className="title is-4">John Smith</p>
-                  <p className="subtitle is-6">@johnsmith</p>
+                  <p className="title is-4">
+                    {data.user.firstName} {''} {data.user.lastName}
+                  </p>
+                  <p className="subtitle is-6">
+                    {`(${data.user.nickName})`}
+                  </p>
                 </div>
               </div>{' '}
               <div className="content">
-                {' '}Lorem ipsum dolor sit amet, consectetur adipiscing
-                elit.Phasellus nec iaculis mauris. <a> @bulmaio </a>.
-                <a>#css</a> <a>#responsive</a> <br />{' '}
-                <small>11:09 PM - 1 Jan 2016</small>{' '}
+                {' '}<span className="icon is-medium">
+                  <i className="fa fa-mobile" />
+                </span>
+                <small>{data.user.document.cellPhone}</small>
               </div>
             </div>
           </div>
