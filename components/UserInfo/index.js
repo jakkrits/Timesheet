@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Columns, Column } from 'bloomer';
 import connect from './store';
 import UserImage from './UserImage';
 import ImageUploader from './ImageUploader';
@@ -23,9 +22,9 @@ class UserInfo extends React.Component {
       );
     }
     return (
-      <Columns isCentered isDesktop>
-        <Column />
-        <Column isSize="1/3" hasTextAlign="centered">
+      <div className="columns is-desktop">
+        <div className="column is-2" />
+        <div className="column is-4">
           <div className="card">
             <div className="card-image">
               {data.user.image === null ? (
@@ -58,12 +57,12 @@ class UserInfo extends React.Component {
               </div>
             </div>
           </div>
-        </Column>
-        <Column isSize="1/3" hasTextAlign="centered">
-          <h2>Column 2</h2>
-        </Column>
-        <Column />
-      </Columns>
+        </div>
+        <div className="column is-4">
+          <p>Column 2</p>
+        </div>
+        <div className="column is-2" />
+      </div>
     );
   }
 }

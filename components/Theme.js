@@ -38,13 +38,14 @@ export const Button = styled.button`
 `;
 
 export const CoverImage = styled.img`
-  borderRadius: 50%,
-  objectFit: cover,
-  height: 100%,
-  position: relative,
-  padding: 5px 5px 5px 5px,
-  borderColor: rgba(214, 214, 219, 0.75),
-  borderStyle: solid,
-  borderWidth: 1px,
-  marginTop: 10px
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  padding: 1px 1px 1px 1px;
+  border-color: rgba(214, 214, 219, 0.75);
+  border-style: solid;
+  border-width: 1px;
+  margin-top: 10px;
+  width: -webkit-fill-available;
+  margin: 10%;
 `;

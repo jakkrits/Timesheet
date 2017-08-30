@@ -54,7 +54,14 @@ class ImageUploader extends React.Component {
   render() {
     if (this.state.uploading) {
       return (
-        <a className="button is-loading is-large is-unselectable">Loading</a>
+        <div className="box">
+          <a
+            className="button is-primary is-loading is-large is-outlined is-unselectable"
+            style={{ margin: 'auto', width: '100%' }}
+          >
+            Loading
+          </a>
+        </div>
       );
     }
 
@@ -70,7 +77,7 @@ class ImageUploader extends React.Component {
             >
               <p
                 className="has-text-grey"
-                style={{ position: 'relative', top: '40%' }}
+                style={{ position: 'relative', top: '40%', left: '20%' }}
               >
                 วางรูปหรือคลิกเพื่ออัพโหลด
               </p>
@@ -88,14 +95,24 @@ class ImageUploader extends React.Component {
           )}
           {this.state.imageId &&
           this.state.imageUrl && (
-            <span>
+            <span
+              style={{
+                display: 'table',
+                margin: '0 auto'
+              }}
+            >
               {' '}
-              <button className="button is-primary" onClick={this.handlePost}>
+              <button
+                className="button is-primary"
+                onClick={this.handlePost}
+                style={{ margin: '0 8px' }}
+              >
                 อัพโหลด
               </button>{' '}
               <button
                 className="button is-danger is-outlined"
                 onClick={this.handleCancel}
+                style={{ margin: '0 8px' }}
               >
                 ยกเลิก
               </button>{' '}
