@@ -1,6 +1,7 @@
 import React from 'react';
 import { graphql, gql, compose } from 'react-apollo';
 import PropTypes from 'prop-types';
+import { CoverImage } from '../../Theme';
 
 const getPhotoUrl = (url, width) => {
   const imageSize = `x${width}`;
@@ -36,17 +37,7 @@ class UserImage extends React.Component {
     const imageUrl = getPhotoUrl(this.props.getImage.user.image.url, '256');
     return (
       <figure className="avatar is-square">
-        <img
-          style={{
-            borderRadius: '50%',
-            objectFit: 'cover',
-            height: '100%',
-            position: 'relative',
-            padding: '15px 15px 15px 15px'
-          }}
-          src={imageUrl}
-          alt="thumbnail"
-        />
+        <CoverImage src={imageUrl} alt="thumbnail" />
         <div className="overlay" />
         <div className="hover_delete_button">
           {/* eslint-disable-next-line */}

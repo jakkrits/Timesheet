@@ -1,7 +1,50 @@
 import styled from 'styled-components';
 
-// eslint-disable-next-line
 export const App = styled.div`
   background-color: ${props => props.theme.colors.background};
   color: ${props => props.theme.colors.text};
+`;
+
+export const A = styled.a`color: ${props => props.theme.colors.main};`;
+
+export const P = styled.p`
+  font-size: ${props => props.theme.font.sizes.normal};
+  line-height: ${props => props.theme.font.sizes.bigger};
+`;
+
+export const Article = styled.article`
+  margin: ${props => props.theme.alignment.horizontalcenter};
+  max-width: 650px;
+`;
+
+export const Button = styled.button`
+  align-items: center;
+  background-color: ${props => props.theme.colors.main};
+  border: 0;
+  color: ${props => props.theme.colors.textAlt};
+  display: flex;
+  padding: ${props => props.theme.spacing.smaller};
+  &:active {
+    background-color: ${props =>
+      props.theme
+        .helper(props.theme.colors.main)
+        .darken(0.2)
+        .string()};
+    transition: background-color 0.3s;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const CoverImage = styled.img`
+  borderRadius: 50%,
+  objectFit: cover,
+  height: 100%,
+  position: relative,
+  padding: 5px 5px 5px 5px,
+  borderColor: rgba(214, 214, 219, 0.75),
+  borderStyle: solid,
+  borderWidth: 1px,
+  marginTop: 10px
 `;
