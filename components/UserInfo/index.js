@@ -28,28 +28,28 @@ class UserInfo extends React.Component {
         <Column isSize="1/3" hasTextAlign="centered">
           <div className="card">
             <div className="card-image">
-              {data.user.image === null
-                ? <ImageUploader userId={data.user.id} />
-                : <UserImage userId={data.user.id} />}
+              {data.user.image === null ? (
+                <ImageUploader userId={data.user.id} />
+              ) : (
+                <UserImage userId={data.user.id} />
+              )}
             </div>
             <div className="card-content">
-              {' '}<div className="media">
+              {' '}
+              <div className="media">
                 <div className="media-left">
-                  <span className="tag is-danger">
-                    {data.user.role}
-                  </span>
+                  <span className="tag is-danger">{data.user.role}</span>
                 </div>
                 <div className="media-content">
                   <p className="title is-4">
                     {data.user.firstName} {''} {data.user.lastName}
                   </p>
-                  <p className="subtitle is-6">
-                    {`(${data.user.nickName})`}
-                  </p>
+                  <p className="subtitle is-6">{`(${data.user.nickName})`}</p>
                 </div>
               </div>{' '}
               <div className="content">
-                {' '}<p>{data.user.document.branch}</p>
+                {' '}
+                <p>{data.user.document.branch}</p>
                 <p>{data.user.email}</p>
                 <span className="icon is-medium">
                   <i className="fa fa-mobile" />

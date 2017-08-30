@@ -67,7 +67,8 @@ class Signin extends React.Component {
               onClick={this.triggerLogin}
               role="presentation"
             >
-              {' '}<span className="icon">
+              {' '}
+              <span className="icon">
                 <i className="fa fa-facebook" />
               </span>{' '}
               <span> Login with Facebook </span>

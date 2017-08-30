@@ -51,7 +51,8 @@ class UserImage extends React.Component {
         <div className="hover_delete_button">
           {/* eslint-disable-next-line */}
           <a role="presentation" onClick={this.removeUserImage}>
-            {' '}Delete{' '}
+            {' '}
+            Delete{' '}
           </a>
         </div>
         <style jsx>{`
@@ -59,7 +60,7 @@ class UserImage extends React.Component {
             color: orange;
           }
           .avatar: hover .overlay {
-            background: rgba(56, 62, 74, 0.50);
+            background: rgba(56, 62, 74, 0.5);
           }
           .overlay {
             position: absolute;
@@ -77,7 +78,7 @@ class UserImage extends React.Component {
             top: 50%;
             text-align: center;
             opacity: 0;
-            transition: opacity .35s ease;
+            transition: opacity 0.35s ease;
           }
           .hover_delete_button a {
             width: 200px;

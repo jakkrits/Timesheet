@@ -61,7 +61,7 @@ class ImageUploader extends React.Component {
     return (
       <div className="dropzone">
         <div className="box">
-          {!this.state.imageId &&
+          {!this.state.imageId && (
             <Dropzone
               style={{ height: '300px' }}
               onDrop={this.onDrop}
@@ -75,22 +75,22 @@ class ImageUploader extends React.Component {
                 วางรูปหรือคลิกเพื่ออัพโหลด
               </p>
               <div className="overlay" />
-            </Dropzone>}
-          {this.state.imageUrl &&
+            </Dropzone>
+          )}
+          {this.state.imageUrl && (
             <img
               src={this.state.imageUrl}
               role="presentation"
               className="w-100 mv3"
               alt="user thumbnail"
               style={{ 'padding-bottom': '10px' }}
-            />}
+            />
+          )}
           {this.state.imageId &&
-            this.state.imageUrl &&
+          this.state.imageUrl && (
             <span>
-              {' '}<button
-                className="button is-primary"
-                onClick={this.handlePost}
-              >
+              {' '}
+              <button className="button is-primary" onClick={this.handlePost}>
                 อัพโหลด
               </button>{' '}
               <button
@@ -99,7 +99,8 @@ class ImageUploader extends React.Component {
               >
                 ยกเลิก
               </button>{' '}
-            </span>}
+            </span>
+          )}
         </div>
         <style jsx>{`
             a {

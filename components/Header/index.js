@@ -21,7 +21,7 @@ class Header extends React.Component {
     nav.classList.toggle('is-active');
   };
 
-  renderLoggedIn = () =>
+  renderLoggedIn = () => (
     <div>
       <div className="field is-grouped">
         <p className="control">
@@ -29,9 +29,7 @@ class Header extends React.Component {
             <span className="icon">
               <i className="fa fa-user-circle" />
             </span>
-            <span>
-              {this.props.data.user.firstName}
-            </span>
+            <span>{this.props.data.user.firstName}</span>
           </a>
         </p>
         <p className="control">
@@ -46,9 +44,10 @@ class Header extends React.Component {
           </a>
         </p>
       </div>
-    </div>;
+    </div>
+  );
 
-  renderLoggedOut = () =>
+  renderLoggedOut = () => (
     <div className="field is-grouped">
       <p className="control">
         <a className="button is-primary" href="signin">
@@ -58,7 +57,8 @@ class Header extends React.Component {
           <span>Login</span>
         </a>
       </p>
-    </div>;
+    </div>
+  );
 
   render() {
     const { pathname, authenticated, data } = this.props;
@@ -123,9 +123,11 @@ class Header extends React.Component {
             <Link prefetch href="/" passHref>
               <a
                 className={
-                  pathname === '/' && 'nav-item is-active'
-                    ? 'nav-item  is-active'
-                    : 'nav-item'
+                  pathname === '/' && 'nav-item is-active' ? (
+                    'nav-item  is-active'
+                  ) : (
+                    'nav-item'
+                  )
                 }
               >
                 หน้าแรก
@@ -135,9 +137,11 @@ class Header extends React.Component {
             <Link prefetch href="/about">
               <a
                 className={
-                  pathname === '/about' && 'nav-item is-active'
-                    ? 'nav-item  is-active'
-                    : 'nav-item'
+                  pathname === '/about' && 'nav-item is-active' ? (
+                    'nav-item  is-active'
+                  ) : (
+                    'nav-item'
+                  )
                 }
               >
                 วิธีใช้งาน

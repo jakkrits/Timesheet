@@ -1,6 +1,6 @@
 import Ripple from '../static/Ripple.svg';
 
-const Loading = () =>
+const Loading = () => (
   <div className="columns">
     <div className="column" />
     <div className="column is-half">
@@ -15,6 +15,7 @@ const Loading = () =>
         background-color: transparent;
       }
     `}</style>
-  </div>;
+  </div>
+);
 
 export default Loading;

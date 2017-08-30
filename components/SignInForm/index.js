@@ -88,7 +88,8 @@ class SignInForm extends React.Component {
     }
     return (
       <span className="tag is-danger">
-        {' '}{Object.keys(this.state.errors).length === 0 &&
+        {' '}
+        {Object.keys(this.state.errors).length === 0 &&
           this.state.serverErrors.message}
       </span>
     );

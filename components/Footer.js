@@ -1,6 +1,6 @@
 import { Footer } from 'bloomer';
 
-const AppFooter = () =>
+const AppFooter = () => (
   <Footer
     id="footer"
     style={{
@@ -20,6 +20,7 @@ const AppFooter = () =>
         </p>
       </div>
     </div>
-  </Footer>;
+  </Footer>
+);
 
 export default AppFooter;
