@@ -13,9 +13,9 @@ engines:
       import/extensions:
         enabled: false
       prettier/prettier:
-        enabled: false
+        enabled: true 
   fixme:
-    enabled: true
+    enabled: false
 ratings:
   paths:
   - "**.js"
