@@ -7,7 +7,7 @@ import ImageUploader from './ImageUploader';
 // eslint-disable-next-line
 class UserInfo extends React.Component {
   render() {
-    console.error(this.props);
+    console.error(this.props); // eslint-disable-line
     const { data } = this.props;
     if (data.loading) {
       // return <Loading />;

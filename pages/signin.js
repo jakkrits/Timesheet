@@ -40,10 +40,10 @@ class Signin extends React.Component {
     lock.on('authenticated', result => {
       lock.getUserInfo(result.accessToken, (error, profile) => {
         if (error) {
-          console.error('getUserInfo error', error);
+          console.error('getUserInfo error', error); // eslint-disable-line
           return;
         }
-        console.error(JSON.stringify(profile, null, 4));
+        console.error(JSON.stringify(profile, null, 4)); // eslint-disable-line
         this.signinOrCreateUser(result.idToken, profile);
       });
     });

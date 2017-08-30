@@ -36,6 +36,7 @@
   "scripts": {
     "build": "next build",
     "dev": "npm run lint && node server.js",
+    "dev-nolint": "node server.js",
     "dev:next": "npm run lint && next",
     "start": "NODE_ENV=production node server.js",
     "start:next": "next start",
