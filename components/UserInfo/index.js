@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import connect from './store';
 import UserImage from './UserImage';
 import ImageUploader from './ImageUploader';
+import Calendar from '../Calendar';
+
 // eslint-disable-next-line
 class UserInfo extends React.Component {
   showDate = date => {
@@ -50,8 +52,8 @@ class UserInfo extends React.Component {
     }
     return (
       <div className="columns is-desktop">
-        <div className="column is-2" />
-        <div className="column is-4">
+        <div className="column is-1" />
+        <div className="column is-3">
           <div className="card">
             <div className="card-image">
               {image === null ? (
@@ -200,10 +202,10 @@ class UserInfo extends React.Component {
             </div>
           </div>
         </div>
-        <div className="column is-4">
-          <p>Column 2</p>
+        <div className="column is-7">
+          <Calendar />
         </div>
-        <div className="column is-2" />
+        <div className="column is-1" />
       </div>
     );
   }
