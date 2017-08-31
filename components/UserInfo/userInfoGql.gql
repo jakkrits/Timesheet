@@ -19,7 +19,7 @@ query currentUser {
       employedDate
       idCardNumber
       leaveWithPay
-      leaveWithoutPay
+      vacation
       savingsBank
       savingsAccountID
       shift
