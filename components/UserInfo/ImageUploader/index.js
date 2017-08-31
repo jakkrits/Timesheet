@@ -77,7 +77,7 @@ class ImageUploader extends React.Component {
             >
               <p
                 className="has-text-grey"
-                style={{ position: 'relative', top: '40%', left: '20%' }}
+                style={{ position: 'relative', top: '40%', left: '30%' }}
               >
                 วางรูปหรือคลิกเพื่ออัพโหลด
               </p>
