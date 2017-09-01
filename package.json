@@ -81,8 +81,6 @@
     "react": "15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-apollo": "1.4.15",
-    "react-data-grid": "^2.0.58",
-    "react-data-grid-addons": "^2.0.58",
     "react-dom": "15.6.1",
     "react-dropzone": "^4.1.0",
     "react-helmet": "5.2.0",
