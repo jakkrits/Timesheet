@@ -7,7 +7,7 @@ class Calendar extends React.Component {
   data = [
     {
       name: 'Tanner',
-      age: 26,
+      age: 2,
       friend: {
         name: 'Jason',
         age: 29
@@ -31,14 +31,16 @@ class Calendar extends React.Component {
       accessor: d => d.friend.name // Custom value accessors!
     },
     {
-      Header: props => <span>Friend Age {props.age}</span>, // Custom header components!
+      Header: () => <span>Friend Age</span>, // Custom header components!
       accessor: 'friend.age'
     }
   ];
   render() {
+    console.log('*******************');
+    console.log(this.props);
+    console.log('*******************');
     return (
       <div>
-        <h1>Calendar</h1>
         <ReactTable data={this.data} columns={this.columns} />
       </div>
     );

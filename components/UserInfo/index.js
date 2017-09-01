@@ -23,7 +23,7 @@ class UserInfo extends React.Component {
       email,
       image
     } = this.props.data.user;
-    console.log(this.props.data.user.document); // eslint-disable-line
+
     const {
       branch,
       cellPhone,
@@ -37,6 +37,7 @@ class UserInfo extends React.Component {
       leaveWithPay,
       vacation
     } = this.props.data.user.document;
+
     if (loading) {
       // return <Loading />;
       return (
@@ -51,10 +52,10 @@ class UserInfo extends React.Component {
       );
     }
     return (
-      <div className="columns is-desktop">
-        <div className="column is-1" />
+      <div className="columns">
+        <div className="column is-hidden-tablet-only" />
         <div className="column is-3">
-          <div className="card">
+          <div className="card" style={{ minWidth: '350px' }}>
             <div className="card-image">
               {image === null ? (
                 <ImageUploader userId={id} />
@@ -203,9 +204,9 @@ class UserInfo extends React.Component {
           </div>
         </div>
         <div className="column is-7">
-          <Calendar />
+          <Calendar {...this.props} />
         </div>
-        <div className="column is-1" />
+        <div className="column is-1 is-hidden-mobile" />
       </div>
     );
   }
