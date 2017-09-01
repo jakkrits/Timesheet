@@ -85,6 +85,7 @@
     "react-dropzone": "^4.1.0",
     "react-helmet": "5.2.0",
     "react-redux": "5.0.6",
+    "react-table": "^6.5.3",
     "rebass": "^1.0.4",
     "redux": "3.7.2",
     "styled-components": "2.1.2",
