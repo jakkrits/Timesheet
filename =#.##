@@ -1,0 +1,59 @@
+
+> pre-commit@1.2.2 uninstall /Users/jakks/Desktop/RAN/node_modules/pre-commit
+> node uninstall.js
+
+
+> husky@0.14.3 uninstall /Users/jakks/Desktop/RAN/node_modules/husky
+> node ./bin/uninstall.js
+
+husky
+uninstalling Git hooks
+done
+
+
+> fsevents@1.1.2 install /Users/jakks/Desktop/RAN/node_modules/fsevents
+> node install
+
+[fsevents] Success: "/Users/jakks/Desktop/RAN/node_modules/fsevents/lib/binding/Release/node-v57-darwin-x64/fse.node" already installed
+Pass --update-binary to reinstall or --build-from-source to recompile
+
+> husky@0.14.3 install /Users/jakks/Desktop/RAN/node_modules/husky
+> node ./bin/install.js
+
+husky
+setting up Git hooks
+skippingpre-commit hook (existing user hook)
+done
+
+
+> pre-commit@1.2.2 install /Users/jakks/Desktop/RAN/node_modules/pre-commit
+> node install.js
+
+pre-commit:
+pre-commit: Detected an existing git pre-commit hook
+pre-commit: Old pre-commit hook backuped to pre-commit.old
+pre-commit:
+
+> subscriptions-transport-ws@0.8.2 postinstall /Users/jakks/Desktop/RAN/node_modules/subscriptions-transport-ws
+> node scripts/post-install.js
+
+
+> spawn-sync@1.0.15 postinstall /Users/jakks/Desktop/RAN/node_modules/spawn-sync
+> node postinstall
+
+
+> uglifyjs-webpack-plugin@0.4.6 postinstall /Users/jakks/Desktop/RAN/node_modules/uglifyjs-webpack-plugin
+> node lib/post_install.js
+
+
+> ngrok@2.2.21 postinstall /Users/jakks/Desktop/RAN/node_modules/ngrok
+> node ./postinstall.js
+
+ngrok - unpacking binary
+ngrok - binary unpacked to /Users/jakks/Desktop/RAN/node_modules/ngrok/bin/ngrok
++ react@15.6.1
++ moment@2.18.1
++ react-dates@12.5.1
++ react-addons-shallow-compare@15.6.0
++ react-dom@15.6.1
+added 201 packages, removed 125 packages and updated 1259 packages in 41.163s
