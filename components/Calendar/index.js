@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactTable from 'react-table';
 import PropTypes from 'prop-types';
+// import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import { DateRangePicker } from 'react-dates';
 
 // Render the Calendars
 class Calendar extends React.Component {
@@ -41,6 +43,8 @@ class Calendar extends React.Component {
     console.log('*******************');
     return (
       <div>
+        <DateRangePicker />
+
         <ReactTable data={this.data} columns={this.columns} />
       </div>
     );

@@ -47,6 +47,11 @@ export default class MyDocument extends Document {
           />
           <link
             rel="stylesheet"
+            type="text/css"
+            href="/static/_datepicker.css"
+          />
+          <link
+            rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.3/css/bulma.min.css"
           />
           <link
