@@ -82,6 +82,7 @@
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-shallow-compare": "^15.6.0",
     "react-apollo": "1.4.15",
+    "react-big-calendar": "^0.15.0",
     "react-dates": "^12.5.1",
     "react-dom": "^15.6.1",
     "react-dropzone": "^4.1.0",
