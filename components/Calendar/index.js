@@ -1,61 +1,88 @@
 import React from 'react';
-import ReactTable from 'react-table';
-import PropTypes from 'prop-types';
-// import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
-import { DateRangePicker } from 'react-dates';
+import BigCalendar from 'react-big-calendar';
+import moment from 'moment';
 
-// Render the Calendars
-class Calendar extends React.Component {
-  data = [
-    {
-      name: 'Tanner',
-      age: 2,
-      friend: {
-        name: 'Jason',
-        age: 29
-      }
-    }
-  ];
+BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
-  columns = [
-    {
-      Header: 'Name',
-      accessor: 'name'
-    },
-    {
-      Header: 'Age',
-      accessor: 'age',
-      Cell: props => <span className="number">{props.value}</span>
-    },
-    {
-      id: 'friendName', // Required because our accessor is not a string
-      Header: 'Friend Name',
-      accessor: d => d.friend.name // Custom value accessors!
-    },
-    {
-      Header: () => <span>Friend Age</span>, // Custom header components!
-      accessor: 'friend.age'
-    }
-  ];
+// const allViews = Object.keys(BigCalendar.views).map(k => BigCalendar.views[k]);
+/* const events = [
+  {
+    title: 'All Day Event',
+    allDay: true,
+    start: new Date(2017, 10, 0),
+    end: new Date(2017, 10, 1)
+  },
+  {
+    title: 'X',
+    allDay: true,
+    start: moment(this.props.workdays[0]),
+    
+  }
+]; */
+
+const Calendar = React.createClass({
   render() {
-    console.log('*******************');
+    moment.locale('th');
+    moment().format('LL');
     console.log(this.props);
-    console.log('*******************');
+    const testDate = new Date(
+      this.props.workdays[0].workday
+    ).toLocaleDateString('th-Th');
+    console.log(testDate);
+    console.log(this.props.workdays[1].workday);
+    console.log(this.props.workdays[1].timeCode);
     return (
-      <div>
-        <DateRangePicker />
-
-        <ReactTable data={this.data} columns={this.columns} />
-      </div>
+      <BigCalendar
+        {...this.props}
+        events={[
+          {
+            title: this.props.workdays[0].timeCode,
+            allDay: true,
+            start: this.props.workdays[0].workday,
+            end: this.props.workdays[0].workday
+          },
+          {
+            title: this.props.workdays[1].timeCode,
+            allDay: true,
+            start: this.props.workdays[1].workday,
+            end: this.props.workdays[1].workday
+          },
+          {
+            title: this.props.workdays[2].timeCode,
+            allDay: true,
+            start: this.props.workdays[2].workday,
+            end: this.props.workdays[2].workday
+          },
+          {
+            title: this.props.workdays[3].timeCode,
+            allDay: true,
+            start: this.props.workdays[3].workday,
+            end: this.props.workdays[3].workday
+          },
+          {
+            title: this.props.workdays[4].timeCode,
+            allDay: true,
+            start: this.props.workdays[4].workday,
+            end: this.props.workdays[4].workday
+          },
+          {
+            title: this.props.workdays[5].timeCode,
+            allDay: true,
+            start: this.props.workdays[5].workday,
+            end: this.props.workdays[5].workday
+          },
+          {
+            title: this.props.workdays[6].timeCode,
+            allDay: true,
+            start: this.props.workdays[6].workday,
+            end: this.props.workdays[6].workday
+          }
+        ]}
+        views={['month']}
+        defaultDate={new Date()}
+      />
     );
   }
-}
-
-Calendar.propTypes = {
-  props: PropTypes.shape({
-    age: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired
-  }).isRequired
-};
+});
 
 export default Calendar;

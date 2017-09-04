@@ -43,12 +43,12 @@ export default class MyDocument extends Document {
           <link
             rel="stylesheet"
             type="text/css"
-            href="https://unpkg.com/react-table@latest/react-table.css"
+            href="/static/_airbnb_datepicker.css"
           />
           <link
             rel="stylesheet"
             type="text/css"
-            href="/static/_datepicker.css"
+            href="/static/react-big-calendar.css"
           />
           <link
             rel="stylesheet"

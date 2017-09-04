@@ -35,7 +35,8 @@ class UserInfo extends React.Component {
       savingsAccountID,
       savingsBank,
       leaveWithPay,
-      vacation
+      vacation,
+      timesheets
     } = this.props.data.user.document;
 
     if (loading) {
@@ -204,7 +205,7 @@ class UserInfo extends React.Component {
           </div>
         </div>
         <div className="column is-7">
-          <Calendar {...this.props} />
+          <Calendar workdays={timesheets} />
         </div>
         <div className="column is-1 is-hidden-mobile" />
       </div>
