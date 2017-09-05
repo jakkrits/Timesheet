@@ -4800,6 +4800,10 @@ mz@2.6.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
+namor@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/namor/-/namor-1.0.1.tgz#ac879d9b6a0a71abecac12da6393e27ab35fb757"
+
 nan@^2.3.0:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.6.2.tgz#e4ff34e6c95fdfb5aecc08de6596f43605a7db45"
@@ -5927,6 +5931,12 @@ react-style-proptype@^3.0.0:
   dependencies:
     prop-types "^15.5.4"
 
+react-table@^6.5.3:
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/react-table/-/react-table-6.5.3.tgz#fd84371b97bcabed8308b766faeeaf4264b155c8"
+  dependencies:
+    classnames "^2.2.5"
+
 react-toolbox@^2.0.0-beta.7:
   version "2.0.0-beta.12"
   resolved "https://registry.yarnpkg.com/react-toolbox/-/react-toolbox-2.0.0-beta.12.tgz#1d9dd7cc41e3b35dabdce5eb100a8068eee88c45"
@@ -5966,12 +5976,6 @@ react@^15.4.2, react@^15.6.1, "react@^15.6.1 || ^16.0.0":
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
-
-reactabular-table@^8.9.0:
-  version "8.9.0"
-  resolved "https://registry.yarnpkg.com/reactabular-table/-/reactabular-table-8.9.0.tgz#46f6cef639cd9bd4b2baf1f14e2686fb2b35e284"
-  dependencies:
-    classnames "^2.2.5"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"

@@ -43,12 +43,12 @@ export default class MyDocument extends Document {
           <link
             rel="stylesheet"
             type="text/css"
-            href="/static/_airbnb_datepicker.css"
+            href="/static/react-big-calendar.css"
           />
           <link
             rel="stylesheet"
             type="text/css"
-            href="/static/react-big-calendar.css"
+            href="/static/react-table.css"
           />
           <link
             rel="stylesheet"
