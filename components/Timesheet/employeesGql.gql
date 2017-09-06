@@ -1,0 +1,17 @@
+query allusers {
+  allUsers {
+    id
+    firstName
+    lastName
+    nickName
+    document {
+      branch
+      department
+      timesheets {
+        timeCode
+        rating
+        workday
+      }
+    }
+  }
+}

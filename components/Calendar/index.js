@@ -3,34 +3,10 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
-
-// const allViews = Object.keys(BigCalendar.views).map(k => BigCalendar.views[k]);
-/* const events = [
-  {
-    title: 'All Day Event',
-    allDay: true,
-    start: new Date(2017, 10, 0),
-    end: new Date(2017, 10, 1)
-  },
-  {
-    title: 'X',
-    allDay: true,
-    start: moment(this.props.workdays[0]),
-    
-  }
-]; */
-
 const Calendar = React.createClass({
   render() {
     moment.locale('th');
     moment().format('LL');
-    console.log(this.props);
-    const testDate = new Date(
-      this.props.workdays[0].workday
-    ).toLocaleDateString('th-Th');
-    console.log(testDate);
-    console.log(this.props.workdays[1].workday);
-    console.log(this.props.workdays[1].timeCode);
     return (
       <BigCalendar
         {...this.props}
