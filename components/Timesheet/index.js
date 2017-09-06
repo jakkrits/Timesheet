@@ -1,7 +1,7 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
-import moment from 'moment';
 import connect from './store';
 
 class Timesheet extends React.Component {
@@ -30,12 +30,9 @@ class Timesheet extends React.Component {
       }}
     />
   );
+
   render() {
     const { data } = this.state;
-    // console.log(data);
-    // console.log(this.props.data);
-    console.log(moment().startOf('month'));
-    console.log(moment().endOf('month'));
     if (this.props.data.loading) {
       return (
         <div className="box">
