@@ -9,11 +9,30 @@ class Timesheet extends React.Component {
       data: makeData()
     };
   }
+  renderEditable = cellInfo => (
+    <div
+      style={{ backgroundColor: '#fafafa' }}
+      contentEditable
+      suppressContentEditableWarning
+      onBlur={e => {
+        const data = [...this.state.data];
+        data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
+        this.setState({ data });
+      }}
+      // eslint-disable-next-line
+      dangerouslySetInnerHTML={{
+        __html: this.state.data[cellInfo.index][cellInfo.column.id]
+      }}
+    />
+  );
   render() {
     const { data } = this.state;
     return (
       <div>
         <ReactTable
+          filterable
+          defaultFilterMethod={(filter, row) =>
+            String(row[filter.id]) === filter.value}
           data={data}
           columns={[
             {
@@ -21,12 +40,20 @@ class Timesheet extends React.Component {
               columns: [
                 {
                   Header: 'First Name',
-                  accessor: 'firstName'
+                  accessor: 'firstName',
+                  Cell: this.renderEditable,
+                  filterMethod: (filter, row) =>
+                    row[filter.id].startsWith(filter.value) ||
+                    row[filter.id].endsWith(filter.value)
                 },
                 {
                   Header: 'Last Name',
                   id: 'lastName',
-                  accessor: d => d.lastName
+                  accessor: d => d.lastName,
+                  Cell: this.renderEditable,
+                  filterMethod: (filter, row) =>
+                    row[filter.id].startsWith(filter.value) ||
+                    row[filter.id].endsWith(filter.value)
                 }
               ]
             },
@@ -53,7 +80,7 @@ class Timesheet extends React.Component {
               ]
             }
           ]}
-          defaultPageSize={10}
+          defaultPageSize={20}
           className="-striped -highlight"
         />
         <br />
