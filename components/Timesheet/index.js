@@ -2,7 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
+import moment from 'moment';
 import connect from './store';
+import daysInAMonth from '../../libraries/date';
 
 class Timesheet extends React.Component {
   constructor(props) {
@@ -45,7 +47,7 @@ class Timesheet extends React.Component {
         </div>
       );
     }
-    console.warn('render after loading');
+    console.log(daysInAMonth(moment().startOf('month'), moment().endOf('month') ));
     return (
       <div>
         <ReactTable
