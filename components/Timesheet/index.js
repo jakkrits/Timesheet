@@ -6,8 +6,7 @@ import moment from 'moment';
 import { format } from 'date-fns';
 import connect from './store';
 import daysInAMonth from '../../libraries/date';
-
-var eoLocale = require('date-fns/locale/eo');
+import thDate from '../../libraries/date-th';
 
 class Timesheet extends React.Component {
   constructor(props) {
@@ -43,8 +42,10 @@ class Timesheet extends React.Component {
   render() {
     const { data, days } = this.state;
     console.log('Days this month: ', days);
-    const formatted = format(days[0], {locale: eoLocale});
+    const formatted = format(days[0]);
     console.log(formatted);
+    console.log(days[0]);
+    console.log(thDate(days[0], 'MMM-D'));
     if (this.props.data.loading) {
       return (
         <div className="box">
