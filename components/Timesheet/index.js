@@ -37,6 +37,7 @@ class Timesheet extends React.Component {
       }}
     />
   );
+  renderDate = () => ('2');
 
   render() {
     const { data, days } = this.state;
@@ -59,8 +60,11 @@ class Timesheet extends React.Component {
         </div>
       );
     }
+    console.warn(this.props.data.allUsers[0].document.timesheets);
+    console.log(this.props.data.allUsers);
     return (
       <div>
+        <p>ตารางทำงานพนักงาน เดือน{thDate(days[0], 'MMMM')}</p>
         <ReactTable
           filterable
           defaultFilterMethod={(filter, row) =>
@@ -109,15 +113,16 @@ class Timesheet extends React.Component {
               Header: 'วันทำงาน',
               columns: [
                 {
-                  Header: 'Age',
-                  accessor: 'age'
+                  Header: '1',
+                  id: 'day1',
+                  accessor: d => thDate(d.document.timesheets[0].workday, 'D MMM')
                 },
                 {
-                  Header: 'Status',
-                  accessor: 'status'
+                  Header: this.renderDate()
                 }
               ]
-            }
+            },
+            
           ]}
           defaultPageSize={15}
           className="-striped -highlight"
