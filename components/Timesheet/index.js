@@ -3,15 +3,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import moment from 'moment';
+import { format } from 'date-fns';
 import connect from './store';
 import daysInAMonth from '../../libraries/date';
+
+var eoLocale = require('date-fns/locale/eo');
 
 class Timesheet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [{}]
+      data: [{}], 
+      days: []
     };
+  }
+  componentDidMount() {
+    this.state.days = daysInAMonth(moment().startOf('month'), moment().endOf('month'));
   }
   componentWillReceiveProps() {
     this.state.data = this.props.data.allUsers;
@@ -34,7 +41,10 @@ class Timesheet extends React.Component {
   );
 
   render() {
-    const { data } = this.state;
+    const { data, days } = this.state;
+    console.log('Days this month: ', days);
+    const formatted = format(days[0], {locale: eoLocale});
+    console.log(formatted);
     if (this.props.data.loading) {
       return (
         <div className="box">
@@ -47,7 +57,6 @@ class Timesheet extends React.Component {
         </div>
       );
     }
-    console.log(daysInAMonth(moment().startOf('month'), moment().endOf('month') ));
     return (
       <div>
         <ReactTable
