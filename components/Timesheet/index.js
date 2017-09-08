@@ -5,8 +5,7 @@ import ReactTable from 'react-table';
 import moment from 'moment';
 import { format } from 'date-fns';
 import connect from './store';
-import daysInAMonth from '../../libraries/date';
-import thDate from '../../libraries/date-th';
+import { daysInAMonth, thDate } from '../../libraries/date';
 
 class Timesheet extends React.Component {
   constructor(props) {
@@ -45,7 +44,9 @@ class Timesheet extends React.Component {
     const formatted = format(days[0]);
     console.log(formatted);
     console.log(days[0]);
-    console.log(thDate(days[0], 'MMM-D'));
+    console.log(thDate(days[28], 'D'));
+    console.log(thDate(days[28], 'MMM'))
+    console.log(thDate(days[23], 'DD MMMM'))
     if (this.props.data.loading) {
       return (
         <div className="box">
