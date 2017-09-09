@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import moment from 'moment';
-import { format } from 'date-fns';
 import connect from './store';
 import { daysInAMonth, thDate } from '../../libraries/date';
 
@@ -46,7 +45,6 @@ class Timesheet extends React.Component {
       console.log('-->', thDate(this.state.days[this.i], 'DMMM'))
       const { timesheets } = d.document
       console.log(thDate(timesheets[`${this.i}`].workday, 'DMMM'))
-      console.log(timesheets[`${this.i}`].workday) 
       return timesheets[`${this.i}`] && thDate(timesheets[`${this.i}`].workday, 'DMMM') === thDate(this.state.days[this.i], 'DMMM') ? timesheets[`${this.i}`].timeCode : 'ควย' 
     }
   }, {
@@ -85,14 +83,6 @@ class Timesheet extends React.Component {
 
   render() {
     const { data, days } = this.state;
-    console.error(days.length);
-    console.log('Days this month: ', days);
-    const formatted = format(days[0]);
-    console.log(formatted);
-    console.log(days[0]);
-    console.log(thDate(days[28], 'D'));
-    console.log(thDate(days[28], 'MMM'))
-    console.log(thDate(days[23], 'DD MMMM'))
     if (this.props.data.loading) {
       return (
         <div className="box">
