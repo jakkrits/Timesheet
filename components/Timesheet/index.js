@@ -37,10 +37,24 @@ class Timesheet extends React.Component {
       }}
     />
   );
-  renderDate = () => ('2');
+
+  dates = [
+    {
+    Header: '1',
+    id: 'day1'
+  }, {
+    Header: '2',
+    id: 'day2'
+  }, {
+    Header: '3',
+    id: 'day3'
+  }]
+
+  renderDate = () => ([...this.dates]);
 
   render() {
     const { data, days } = this.state;
+    console.error(days.length);
     console.log('Days this month: ', days);
     const formatted = format(days[0]);
     console.log(formatted);
@@ -60,7 +74,6 @@ class Timesheet extends React.Component {
         </div>
       );
     }
-    console.warn(this.props.data.allUsers[0].document.timesheets);
     console.log(this.props.data.allUsers);
     return (
       <div>
@@ -111,16 +124,7 @@ class Timesheet extends React.Component {
             },
             {
               Header: 'วันทำงาน',
-              columns: [
-                {
-                  Header: '1',
-                  id: 'day1',
-                  accessor: d => thDate(d.document.timesheets[0].workday, 'D MMM')
-                },
-                {
-                  Header: this.renderDate()
-                }
-              ]
+              columns: this.renderDate()
             },
             
           ]}
