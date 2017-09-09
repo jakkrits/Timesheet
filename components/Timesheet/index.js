@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
@@ -10,12 +9,15 @@ class Timesheet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [{}], 
+      data: [{}],
       days: []
     };
   }
   componentDidMount() {
-    this.state.days = daysInAMonth(moment().startOf('month'), moment().endOf('month'));
+    this.state.days = daysInAMonth(
+      moment().startOf('month'),
+      moment().endOf('month')
+    );
   }
   componentWillReceiveProps() {
     this.state.data = this.props.data.allUsers;
@@ -36,51 +38,35 @@ class Timesheet extends React.Component {
       }}
     />
   );
-  i = 1 
-  dates = [
-    {
-    Header: props => <span>{thDate(this.state.days[this.i], 'DMMM')}</span>,
-    id: '1',
-    accessor: d =>  { 
-      console.log('-->', thDate(this.state.days[this.i], 'DMMM'))
-      const { timesheets } = d.document
-      console.log(thDate(timesheets[`${this.i}`].workday, 'DMMM'))
-      // return timesheets[`${this.i}`] && thDate(timesheets[`${this.i}`].workday, 'DMMM') === thDate(this.state.days[this.i], 'DMMM') ? timesheets[`${this.i}`].timeCode : 'ควย' 
-      return 'ควย'
-    }
-  }, {
-    Header: '2',
-    id: '2'
-  }, {
-    Header: '3',
-    id: '3'
-  }, {
-    Header: '4',
-    id: '4'
-  }, {
-    Header: '5',
-    id: '5'
-  }, {
-    Header: '6',
-    id: '6'
-  }, {
-    Header: '7',
-    id: '7'
-  }, {
-    Header: '8',
-    id: '8'
-  }, {
-    Header: '9',
-    id: '9'
-  }, {
-    Header: '10',
-    id: '10'
-  }, {
-    Header: '11',
-    id: '11'
-  }]
 
-  renderDate = () => ([...this.dates]);
+  renderDate = () => {
+    const dates = [];
+    const availableTimesheets = [];
+    for (let i = 0; i < this.state.days.length; i += 1) {
+      dates.push({
+        Header: props => <span>{thDate(this.state.days[i], 'DMMM')}</span>, // eslint-disable-line
+        id: `${i}`,
+        accessor: d => {
+          const { timesheets } = d.document;
+          if (timesheets[i]) {
+            availableTimesheets.push(thDate(timesheets[i].workday, 'DMMM'));
+          }
+          // console.error(availableTimesheets);
+          // eslint-disable-next-line
+          for (const day in this.state.days) {
+            const matchDay = thDate(this.state.days[day], 'DMMM');
+            // console.warn(matchDay);
+            if (`${matchDay}` === `${availableTimesheets[i]}`) {
+              return timesheets[i].timeCode;
+            }
+          }
+          return '-';
+        }
+      });
+    }
+    console.log(dates);
+    return dates;
+  };
 
   render() {
     const { data, days } = this.state;
@@ -146,8 +132,7 @@ class Timesheet extends React.Component {
             {
               Header: 'วันทำงาน',
               columns: this.renderDate()
-            },
-            
+            }
           ]}
           defaultPageSize={15}
           className="-striped -highlight"
