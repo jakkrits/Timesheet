@@ -37,16 +37,17 @@ class Timesheet extends React.Component {
       }}
     />
   );
-  i = 1
+  i = 5 
   dates = [
     {
-    Header: `${this.i}`,
+    Header: props => <span>{thDate(this.state.days[this.i], 'DMMM')}</span>,
     id: '1',
     accessor: d =>  { 
+      console.log('-->', thDate(this.state.days[this.i], 'DMMM'))
       const { timesheets } = d.document
       console.log(thDate(timesheets[`${this.i}`].workday, 'DMMM'))
       console.log(timesheets[`${this.i}`].workday) 
-      return timesheets[`${this.i}`] ? timesheets[`${this.i}`].timeCode : 'ควย' 
+      return timesheets[`${this.i}`] && thDate(timesheets[`${this.i}`].workday, 'DMMM') === thDate(this.state.days[this.i], 'DMMM') ? timesheets[`${this.i}`].timeCode : 'ควย' 
     }
   }, {
     Header: '2',
@@ -104,7 +105,7 @@ class Timesheet extends React.Component {
         </div>
       );
     }
-    // console.warn(data);
+    console.warn(data);
     console.error(thDate(data[0].document.timesheets[0].workday, 'DMMM'));
     console.error(thDate(data[0].document.timesheets[1].workday, 'DMMM'));
     console.error(thDate(data[0].document.timesheets[2].workday, 'DMMM'));
