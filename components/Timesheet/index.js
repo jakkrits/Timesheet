@@ -105,15 +105,6 @@ class Timesheet extends React.Component {
         </div>
       );
     }
-    console.warn(data);
-    console.error(thDate(data[0].document.timesheets[0].workday, 'DMMM'));
-    console.error(thDate(data[0].document.timesheets[1].workday, 'DMMM'));
-    console.error(thDate(data[0].document.timesheets[2].workday, 'DMMM'));
-    console.error(thDate(data[0].document.timesheets[3].workday, 'DMMM'));
-    console.error(thDate(data[0].document.timesheets[4].workday, 'DMMM'));
-    console.error(thDate(data[0].document.timesheets[5].workday, 'DMMM'));
-    console.error(thDate(data[0].document.timesheets[6].workday, 'DMMM'));
-    console.warn(data[0].document.timesheets[0])
     return (
       <div>
         <p>ตารางทำงานพนักงาน เดือน{thDate(days[0], 'MMMM')}</p>
