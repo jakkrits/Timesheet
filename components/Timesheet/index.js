@@ -75,6 +75,48 @@ class Timesheet extends React.Component {
       );
     }
     console.log(this.props.data.allUsers);
+
+    let data1 = {
+      "people": [{
+        "key": ["2Anita", "1916"],
+        "values": ["11"]
+      }, {
+        "key": ["2Anita", "1917"],
+        "values": ["20"]
+      }, {
+        "key": ["2Anna", "1916"],
+        "values": ["153"]
+      }, {
+        "key": ["2Anna", "1917"],
+        "values": ["91"]
+      }]
+    }
+
+    let auxNames = data1.people.reduce((initial, item) => {
+
+      if (!initial.hasOwnProperty(item.key[0])) {
+        initial[item.key[0]] = {
+          years: [],
+          born: []
+        }
+      }
+
+      initial[item.key[0]].years.push(item.key[1])
+      initial[item.key[0]].born.push(item.values[0])
+
+      return initial
+    }, {})
+
+    const names = []
+
+    for (let prop in auxNames) {
+      names.push({
+        name: prop,
+        years: auxNames[prop].years,
+        born: auxNames[prop].born
+      })
+    }
+    console.warn('names: ', names);
     return (
       <div>
         <p>ตารางทำงานพนักงาน เดือน{thDate(days[0], 'MMMM')}</p>
