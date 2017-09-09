@@ -5,9 +5,11 @@ query allusers {
     lastName
     nickName
     document {
+      id
       branch
       department
       timesheets {
+        id
         timeCode
         rating
         workday

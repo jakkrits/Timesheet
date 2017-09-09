@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
-const Calendar = React.createClass({
+
+// eslint-disable-next-line
+class Calendar extends React.Component {
   render() {
     moment.locale('th');
     moment().format('LL');
@@ -59,6 +62,15 @@ const Calendar = React.createClass({
       />
     );
   }
-});
+}
+
+Calendar.defaultProps = {
+  timeCode: '-'
+};
+
+Calendar.propTypes = {
+  workdays: PropTypes.array.isRequired,
+  timeCode: PropTypes.string
+};
 
 export default Calendar;
