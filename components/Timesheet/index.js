@@ -37,17 +37,47 @@ class Timesheet extends React.Component {
       }}
     />
   );
-
+  i = 1
   dates = [
     {
-    Header: '1',
-    id: 'day1'
+    Header: `${this.i}`,
+    id: '1',
+    accessor: d =>  { 
+      const { timesheets } = d.document
+      console.log(thDate(timesheets[`${this.i}`].workday, 'DMMM'))
+      console.log(timesheets[`${this.i}`].workday) 
+      return timesheets[`${this.i}`] ? timesheets[`${this.i}`].timeCode : 'ควย' 
+    }
   }, {
     Header: '2',
-    id: 'day2'
+    id: '2'
   }, {
     Header: '3',
-    id: 'day3'
+    id: '3'
+  }, {
+    Header: '4',
+    id: '4'
+  }, {
+    Header: '5',
+    id: '5'
+  }, {
+    Header: '6',
+    id: '6'
+  }, {
+    Header: '7',
+    id: '7'
+  }, {
+    Header: '8',
+    id: '8'
+  }, {
+    Header: '9',
+    id: '9'
+  }, {
+    Header: '10',
+    id: '10'
+  }, {
+    Header: '11',
+    id: '11'
   }]
 
   renderDate = () => ([...this.dates]);
@@ -74,49 +104,15 @@ class Timesheet extends React.Component {
         </div>
       );
     }
-    console.log(this.props.data.allUsers);
-
-    let data1 = {
-      "people": [{
-        "key": ["2Anita", "1916"],
-        "values": ["11"]
-      }, {
-        "key": ["2Anita", "1917"],
-        "values": ["20"]
-      }, {
-        "key": ["2Anna", "1916"],
-        "values": ["153"]
-      }, {
-        "key": ["2Anna", "1917"],
-        "values": ["91"]
-      }]
-    }
-
-    let auxNames = data1.people.reduce((initial, item) => {
-
-      if (!initial.hasOwnProperty(item.key[0])) {
-        initial[item.key[0]] = {
-          years: [],
-          born: []
-        }
-      }
-
-      initial[item.key[0]].years.push(item.key[1])
-      initial[item.key[0]].born.push(item.values[0])
-
-      return initial
-    }, {})
-
-    const names = []
-
-    for (let prop in auxNames) {
-      names.push({
-        name: prop,
-        years: auxNames[prop].years,
-        born: auxNames[prop].born
-      })
-    }
-    console.warn('names: ', names);
+    // console.warn(data);
+    console.error(thDate(data[0].document.timesheets[0].workday, 'DMMM'));
+    console.error(thDate(data[0].document.timesheets[1].workday, 'DMMM'));
+    console.error(thDate(data[0].document.timesheets[2].workday, 'DMMM'));
+    console.error(thDate(data[0].document.timesheets[3].workday, 'DMMM'));
+    console.error(thDate(data[0].document.timesheets[4].workday, 'DMMM'));
+    console.error(thDate(data[0].document.timesheets[5].workday, 'DMMM'));
+    console.error(thDate(data[0].document.timesheets[6].workday, 'DMMM'));
+    console.warn(data[0].document.timesheets[0])
     return (
       <div>
         <p>ตารางทำงานพนักงาน เดือน{thDate(days[0], 'MMMM')}</p>
