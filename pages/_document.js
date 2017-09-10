@@ -48,6 +48,11 @@ export default class MyDocument extends Document {
           <link
             rel="stylesheet"
             type="text/css"
+            href="https://npmcdn.com/react-bootstrap-table/dist/react-bootstrap-table-all.min.css"
+          />
+          <link
+            rel="stylesheet"
+            type="text/css"
             href="/static/react-table.css"
           />
           <link
