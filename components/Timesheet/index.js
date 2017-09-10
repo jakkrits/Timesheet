@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import ReactTable from 'react-table';
 import moment from 'moment';
 import connect from './store';
@@ -82,8 +83,17 @@ class Timesheet extends React.Component {
         </div>
       );
     }
+
     return (
       <div>
+        <BootstrapTable data={data} striped hover version="4">
+          <TableHeaderColumn isKey dataField="id">
+            รหัสพนักงาน
+          </TableHeaderColumn>
+          <TableHeaderColumn dataField="firstName">ชื่อ</TableHeaderColumn>
+          <TableHeaderColumn dataField="lastName">นามสกุล</TableHeaderColumn>
+          <TableHeaderColumn dataField="nickName">ชื่อเล่น</TableHeaderColumn>
+        </BootstrapTable>
         <p>ตารางทำงานพนักงาน เดือน{thDate(days[0], 'MMMM')}</p>
         <ReactTable
           filterable
