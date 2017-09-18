@@ -94,30 +94,30 @@ class ImageUploader extends React.Component {
             />
           )}
           {this.state.imageId &&
-          this.state.imageUrl && (
-            <span
-              style={{
-                display: 'table',
-                margin: '0 auto'
-              }}
-            >
-              {' '}
-              <button
-                className="button is-primary"
-                onClick={this.handlePost}
-                style={{ margin: '0 8px' }}
+            this.state.imageUrl && (
+              <span
+                style={{
+                  display: 'table',
+                  margin: '0 auto'
+                }}
               >
-                อัพโหลด
-              </button>{' '}
-              <button
-                className="button is-danger is-outlined"
-                onClick={this.handleCancel}
-                style={{ margin: '0 8px' }}
-              >
-                ยกเลิก
-              </button>{' '}
-            </span>
-          )}
+                {' '}
+                <button
+                  className="button is-primary"
+                  onClick={this.handlePost}
+                  style={{ margin: '0 8px' }}
+                >
+                  อัพโหลด
+                </button>{' '}
+                <button
+                  className="button is-danger is-outlined"
+                  onClick={this.handleCancel}
+                  style={{ margin: '0 8px' }}
+                >
+                  ยกเลิก
+                </button>{' '}
+              </span>
+            )}
         </div>
         <style jsx>{`
             a {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import ReactTable from 'react-table';
+// import ReactTable from 'react-table';
 import moment from 'moment';
 import connect from './store';
 import { daysInAMonth, thDate } from '../../libraries/date';
@@ -23,54 +23,32 @@ class Timesheet extends React.Component {
   componentWillReceiveProps() {
     this.state.data = this.props.data.allUsers;
   }
-  renderEditable = cellInfo => (
-    <div
-      style={{ backgroundColor: '#fafafa' }}
-      contentEditable
-      suppressContentEditableWarning
-      onBlur={e => {
-        const data = [...this.state.data];
-        data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
-        this.setState({ data });
-      }}
-      // eslint-disable-next-line
-      dangerouslySetInnerHTML={{
-        __html: this.state.data[cellInfo.index][cellInfo.column.id]
-      }}
-    />
-  );
+  onRowClick = row => {
+    console.log(row.document.timesheets);
+  };
+  indexN = (cell, row, enumObject, index) => <div> {index + 1} </div>;
 
-  renderDate = () => {
-    const dates = [];
-    const availableTimesheets = [];
-    for (let i = 0; i < this.state.days.length; i += 1) {
-      dates.push({
-        Header: props => <span>{thDate(this.state.days[i], 'DMMM')}</span>, // eslint-disable-line
-        id: `${i}`,
-        accessor: d => {
-          const { timesheets } = d.document;
-          if (timesheets[i]) {
-            availableTimesheets.push(thDate(timesheets[i].workday, 'DMMM'));
-          }
-          // console.error(availableTimesheets);
-          // eslint-disable-next-line
-          for (const day in this.state.days) {
-            const matchDay = thDate(this.state.days[day], 'DMMM');
-            // console.warn(matchDay);
-            if (`${matchDay}` === `${availableTimesheets[i]}`) {
-              return timesheets[i].timeCode;
-            }
-          }
-          return '-';
-        }
-      });
+  testDoc = (cell, row, enumObject, index) => {
+    console.log(row.document.timesheets, index);
+    return <div> {index % 2} </div>;
+  };
+  renderDateColumns = days => {
+    const columnDays = [];
+    for (let i = 0; i < days.length; i += 1) {
+      columnDays.push(
+        <TableHeaderColumn dataField="workday">
+          {thDate(days[i], 'D')}
+        </TableHeaderColumn>
+      );
     }
-    console.log(dates);
-    return dates;
+    console.log(columnDays);
+    return columnDays;
   };
 
   render() {
+    const options = { onRowClick: this.onRowClick };
     const { data, days } = this.state;
+
     if (this.props.data.loading) {
       return (
         <div className="box">
@@ -84,69 +62,45 @@ class Timesheet extends React.Component {
       );
     }
 
+    console.log('DATA: \n');
+    console.log(data);
+    console.warn('*****');
+    console.warn(days);
+    console.log(this.props.data);
+    // console.error(data[0].document.timesheets);
     return (
       <div>
-        <BootstrapTable data={data} striped hover version="4">
-          <TableHeaderColumn isKey dataField="id">
+        <p>ตารางทำงานพนักงาน เดือน{thDate(days[0], 'MMMM')}</p>
+
+        <BootstrapTable
+          data={data}
+          options={options}
+          striped
+          hover
+          condensed
+          version="4"
+        >
+          <TableHeaderColumn dataField="any" dataFormat={this.indexN}>
+            #
+          </TableHeaderColumn>
+          <TableHeaderColumn dataField="workday" dataFormat={this.testDoc}>
+            TEST
+          </TableHeaderColumn>
+          <TableHeaderColumn width="10%" isKey dataField="id">
             รหัสพนักงาน
           </TableHeaderColumn>
-          <TableHeaderColumn dataField="firstName">ชื่อ</TableHeaderColumn>
-          <TableHeaderColumn dataField="lastName">นามสกุล</TableHeaderColumn>
-          <TableHeaderColumn dataField="nickName">ชื่อเล่น</TableHeaderColumn>
+          <TableHeaderColumn width="8%" dataField="firstName">
+            ชื่อ
+          </TableHeaderColumn>
+          <TableHeaderColumn width="8%" dataField="lastName">
+            นามสกุล
+          </TableHeaderColumn>
+          <TableHeaderColumn width="8%" dataField="nickName">
+            ชื่อเล่น
+          </TableHeaderColumn>
+          {this.renderDateColumns(days)}
         </BootstrapTable>
-        <p>ตารางทำงานพนักงาน เดือน{thDate(days[0], 'MMMM')}</p>
-        <ReactTable
-          filterable
-          defaultFilterMethod={(filter, row) =>
-            String(row[filter.id]) === filter.value}
-          data={data}
-          columns={[
-            {
-              Header: 'พนักงาน',
-              columns: [
-                {
-                  Header: 'รหัสพนักงาน',
-                  id: 'id',
-                  accessor: d => d.id,
-                  filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) ||
-                    row[filter.id].endsWith(filter.value)
-                },
-                {
-                  Header: 'ชื่อ',
-                  accessor: 'firstName',
-                  Cell: this.renderEditable,
-                  filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) ||
-                    row[filter.id].endsWith(filter.value)
-                },
-                {
-                  Header: 'นามสกุล',
-                  id: 'lastName',
-                  accessor: d => d.lastName,
-                  Cell: this.renderEditable,
-                  filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) ||
-                    row[filter.id].endsWith(filter.value)
-                },
-                {
-                  Header: 'ชื่อเล่น',
-                  accessor: 'nickName',
-                  Cell: this.renderEditable,
-                  filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) ||
-                    row[filter.id].endsWith(filter.value)
-                }
-              ]
-            },
-            {
-              Header: 'วันทำงาน',
-              columns: this.renderDate()
-            }
-          ]}
-          defaultPageSize={15}
-          className="-striped -highlight"
-        />
+
         <br />
       </div>
     );

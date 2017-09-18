@@ -23,11 +23,9 @@ class Default extends React.Component {
       <App>
         <Helmet>
           <title>
-            {this.props.title !== '' ? (
-              `${this.props.title} :: ChewLounge`
-            ) : (
-              'ChewLounge'
-            )}
+            {this.props.title !== ''
+              ? `${this.props.title} :: ChewLounge`
+              : 'ChewLounge'}
           </title>
         </Helmet>
         <Header pathname={this.props.url.pathname} />

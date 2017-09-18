@@ -123,11 +123,9 @@ class Header extends React.Component {
             <Link prefetch href="/" passHref>
               <a
                 className={
-                  pathname === '/' && 'nav-item is-active' ? (
-                    'nav-item  is-active'
-                  ) : (
-                    'nav-item'
-                  )
+                  pathname === '/' && 'nav-item is-active'
+                    ? 'nav-item  is-active'
+                    : 'nav-item'
                 }
               >
                 หน้าแรก
@@ -137,11 +135,9 @@ class Header extends React.Component {
             <Link prefetch href="/about">
               <a
                 className={
-                  pathname === '/about' && 'nav-item is-active' ? (
-                    'nav-item  is-active'
-                  ) : (
-                    'nav-item'
-                  )
+                  pathname === '/about' && 'nav-item is-active'
+                    ? 'nav-item  is-active'
+                    : 'nav-item'
                 }
               >
                 วิธีใช้งาน
