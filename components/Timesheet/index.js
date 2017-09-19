@@ -29,7 +29,7 @@ class Timesheet extends React.Component {
   indexN = (cell, row, enumObject, index) => <div> {index + 1} </div>;
 
   testDoc = (cell, row, enumObject, index) => {
-    console.log(row.document.timesheets, index);
+    console.log(row.document, index);
     return <div> {index % 2} </div>;
   };
   renderDateColumns = days => {
@@ -48,7 +48,10 @@ class Timesheet extends React.Component {
   render() {
     const options = { onRowClick: this.onRowClick };
     const { data, days } = this.state;
-
+    const tdAttr = {
+      'data-attr1': 'value1',
+      'data-attr2': 'value2'
+    };
     if (this.props.data.loading) {
       return (
         <div className="box">
@@ -95,7 +98,7 @@ class Timesheet extends React.Component {
           <TableHeaderColumn width="8%" dataField="lastName">
             นามสกุล
           </TableHeaderColumn>
-          <TableHeaderColumn width="8%" dataField="nickName">
+          <TableHeaderColumn width="8%" dataField="nickName" tdAttr={tdAttr}>
             ชื่อเล่น
           </TableHeaderColumn>
           {this.renderDateColumns(days)}
