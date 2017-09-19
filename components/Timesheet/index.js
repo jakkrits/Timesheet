@@ -25,12 +25,16 @@ class Timesheet extends React.Component {
   onRowClick = row => {
     console.log(row.document.timesheets);
   };
+
+  showBranch = (cell, row) => <div>{row.document.branch}</div>; // eslint-disable-line
+
   showWorkCode = (cell, row) => {
     const timesheets = row.document.timesheets;
     //eslint-disable-next-line
-    for (let i = 0; i <= timesheets.length; i += 1) {
-      console.warn(i);
+    for (let i = 0; i < timesheets.length; i += 1) {
+      console.warn(timesheets[i]);
     }
+    return <p>X</p>;
   };
   renderDateColumns = days => {
     const columnDays = [];
@@ -47,9 +51,7 @@ class Timesheet extends React.Component {
   render() {
     const options = { onRowClick: this.onRowClick };
     const { data, days } = this.state;
-    console.warn(data);
     const indexN = (cell, row, enumObject, index) => <div> {index + 1} </div>;
-    const showBranch = (cell, row) => <div>{row.document.branch}</div>;
 
     if (this.props.data.loading) {
       return (
@@ -84,7 +86,7 @@ class Timesheet extends React.Component {
           <TableHeaderColumn dataField="firstName">ชื่อ</TableHeaderColumn>
           <TableHeaderColumn dataField="lastName">นามสกุล</TableHeaderColumn>
           <TableHeaderColumn dataField="nickName">ชื่อเล่น</TableHeaderColumn>
-          <TableHeaderColumn dataField="branch" dataFormat={showBranch}>
+          <TableHeaderColumn dataField="branch" dataFormat={this.showBranch}>
             สาขา
           </TableHeaderColumn>
           {this.renderDateColumns(days)}
