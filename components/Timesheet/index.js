@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import moment from 'moment';
+import _ from 'lodash';
 import connect from './store';
 import { daysInAMonth, thDate } from '../../libraries/date';
 
@@ -9,7 +10,6 @@ class Timesheet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [{}],
       days: []
     };
   }
@@ -19,20 +19,18 @@ class Timesheet extends React.Component {
       moment().endOf('month')
     );
   }
-  componentWillReceiveProps() {
-    this.state.data = this.props.data.allUsers;
-  }
+
   onRowClick = row => {
     console.log(row.document.timesheets);
   };
 
-  showBranch = (cell, row) => <div>{row.document.branch}</div>; // eslint-disable-line
+  showBranch = (cell, row) => <div>{_.get(row, 'document.branch')}</div>; // eslint-disable-line
 
   showWorkCode = (cell, row) => {
     const timesheets = row.document.timesheets;
     //eslint-disable-next-line
     for (let i = 0; i < timesheets.length; i += 1) {
-      console.warn(timesheets[i]);
+      // console.warn(timesheets[i].workday);
     }
     return <p>X</p>;
   };
@@ -50,9 +48,8 @@ class Timesheet extends React.Component {
 
   render() {
     const options = { onRowClick: this.onRowClick };
-    const { data, days } = this.state;
+    const { days } = this.state;
     const indexN = (cell, row, enumObject, index) => <div> {index + 1} </div>;
-
     if (this.props.data.loading) {
       return (
         <div className="box">
@@ -65,11 +62,12 @@ class Timesheet extends React.Component {
         </div>
       );
     }
+    const allUsers = this.props.data.allUsers;
     return (
       <div>
-        <p>ตารางทำงานพนักงาน เดือน{thDate(days[0], 'MMMM')}</p>
+        <p>Employees Timesheet: Month - {thDate(days[0], 'MMMM')}</p>
         <BootstrapTable
-          data={data}
+          data={allUsers}
           options={options}
           striped
           hover
@@ -81,13 +79,13 @@ class Timesheet extends React.Component {
           </TableHeaderColumn>
           <TableHeaderColumn isKey dataField="id">
             {' '}
-            รหัสพนักงาน{' '}
+            ID{' '}
           </TableHeaderColumn>
-          <TableHeaderColumn dataField="firstName">ชื่อ</TableHeaderColumn>
-          <TableHeaderColumn dataField="lastName">นามสกุล</TableHeaderColumn>
-          <TableHeaderColumn dataField="nickName">ชื่อเล่น</TableHeaderColumn>
+          <TableHeaderColumn dataField="firstName">Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="lastName">Lastname</TableHeaderColumn>
+          <TableHeaderColumn dataField="nickName">Nickname</TableHeaderColumn>
           <TableHeaderColumn dataField="branch" dataFormat={this.showBranch}>
-            สาขา
+            Branch
           </TableHeaderColumn>
           {this.renderDateColumns(days)}
         </BootstrapTable>
