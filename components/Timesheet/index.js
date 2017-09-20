@@ -38,7 +38,11 @@ class Timesheet extends React.Component {
     const columnDays = [];
     for (let i = 0; i < days.length; i += 1) {
       columnDays.push(
-        <TableHeaderColumn dataField="workday" dataFormat={this.showWorkCode}>
+        <TableHeaderColumn
+          key={i}
+          dataField="workday"
+          dataFormat={this.showWorkCode}
+        >
           {thDate(days[i], 'D')}
         </TableHeaderColumn>
       );

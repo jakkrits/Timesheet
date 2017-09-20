@@ -1,0 +1,111 @@
+{
+    "data": {
+      "allUsers": [
+        {
+          "document": {
+            "id": "cj6qnp6un4kog017421ryisj9",
+            "branch": "BAN_KOH",
+            "department": "OWNER",
+            "timesheets": [
+              {
+                "id": "cj6qnp6uo4koh0174c9yweeoe",
+                "timeCode": "R",
+                "rating": 2,
+                "workday": "2017-09-07T17:00:00.000Z"
+              },
+              {
+                "id": "cj75vgxk7192r01345etuj7et",
+                "timeCode": "R",
+                "rating": 5,
+                "workday": "2017-09-08T17:00:00.000Z"
+              },
+              {
+                "id": "cj75vmihe195r01341pjed1u9",
+                "timeCode": "OT",
+                "rating": 5,
+                "workday": "2017-09-04T08:00:22.741Z"
+              },
+              {
+                "id": "cj75vmxwq19660134dqxs4jc0",
+                "timeCode": "H",
+                "rating": 4,
+                "workday": "2017-09-02T17:00:00.000Z"
+              },
+              {
+                "id": "cj75w6heo19g801341so2f0wm",
+                "timeCode": "R",
+                "rating": 4,
+                "workday": "2017-09-06T17:00:00.000Z"
+              },
+              {
+                "id": "cj75w78ec19gw0134jni0xmbq",
+                "timeCode": "L",
+                "rating": 4,
+                "workday": "2017-09-05T17:00:00.000Z"
+              },
+              {
+                "id": "cj75w7yrm19hk0134vl289d8w",
+                "timeCode": "V",
+                "rating": 1,
+                "workday": "2017-09-04T17:00:00.000Z"
+              }
+            ]
+          },
+          "lastName": "sutt",
+          "firstName": "jakkrit",
+          "nickName": "dave",
+          "id": "cj6qnp6un4kof01744rjqcz3l"
+        },
+        {
+          "document": {
+            "id": "cj7ppehbk29xv0148red0fvk1",
+            "branch": "SAVE_ONE",
+            "department": "KITCHEN",
+            "timesheets": [
+              {
+                "id": "cj7ppf2wn29ye0148wow2aou0",
+                "timeCode": "R",
+                "rating": 1,
+                "workday": "2017-09-18T05:02:10.959Z"
+              },
+              {
+                "id": "cj7ppgd9z29zy0148doc9vg8x",
+                "timeCode": "OT",
+                "rating": 2,
+                "workday": "2017-09-18T05:03:10.130Z"
+              }
+            ]
+          },
+          "lastName": "ทองกวาว",
+          "firstName": "อีดอก",
+          "nickName": "แต๊ซ",
+          "id": "cj7ppbhle902w0189ygmo5q10"
+        },
+        {
+          "document": {
+            "id": "cj7ppngtp2a860148yx0q1p2x",
+            "branch": "KHON_KHAN",
+            "department": "DISHWASHER",
+            "timesheets": [
+              {
+                "id": "cj7ppo6bu2a8t0148r9ts0voa",
+                "timeCode": "S",
+                "rating": 2,
+                "workday": "2017-09-18T05:09:13.048Z"
+              },
+              {
+                "id": "cj7ppoua32a9e0148run9y4nt",
+                "timeCode": "L",
+                "rating": 5,
+                "workday": "2017-09-18T05:09:43.207Z"
+              }
+            ]
+          },
+          "lastName": "ปีวดวย",
+          "firstName": "เปวดี",
+          "nickName": "ป๋วย",
+          "id": "cj7pplzhra6wf01548wksus9k"
+        }
+      ]
+    }
+  }
